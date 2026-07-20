@@ -26,6 +26,8 @@ function layout({ title, contentHtml, isIndex }) {
   header h1 { font-size: 1.5rem; margin-bottom: 4px; }
   header p { color: #666; font-size: 0.9rem; }
   header a { color: inherit; text-decoration: none; }
+  nav { margin-top: 8px; }
+  nav a { color: #2563eb; text-decoration: none; margin-right: 16px; font-size: 0.9rem; }
   h1, h2, h3 { line-height: 1.4; }
   a { color: #2563eb; }
   .post-list { list-style: none; padding: 0; }
@@ -40,6 +42,10 @@ function layout({ title, contentHtml, isIndex }) {
 <header>
   <h1><a href="${isIndex ? "" : "../"}index.html">${SITE_TITLE}</a></h1>
   <p>${SITE_DESCRIPTION}</p>
+  <nav>
+    <a href="${isIndex ? "" : "../"}index.html">記事一覧</a>
+    <a href="${isIndex ? "" : "../"}consulting.html">法人向けAI活用診断・ご相談</a>
+  </nav>
 </header>
 <main>
 ${contentHtml}
