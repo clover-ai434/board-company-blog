@@ -1,6 +1,6 @@
 # board-company-blog
 
-「AIでラクする研究所」— AI/業務効率化をテーマにした自動投稿ブログ。GitHub Pagesで公開する。
+「ゼロ円AI自動化ラボ」— AI/業務効率化をテーマにした自動投稿ブログ。GitHub Pagesで公開する。
 
 Board-Companyプロジェクト([`../Board-Company`](../Board-Company))のマイクロSaaS(SNS/ブログ投稿の自動生成・自動投稿ツール)のドッグフーディング第一弾。
 
