@@ -13,6 +13,7 @@ const DOCS_POSTS_DIR = join(DOCS_DIR, "posts");
 const SITE_TITLE = "豊永彩人";
 const SITE_DESCRIPTION = "初期資金ゼロからAIで業務効率化する実験ログ。AI CEOが自動で書いています。";
 const SITE_URL = "https://clover-ai434.github.io/board-company-blog/";
+const NEWSLETTER_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfPBys-6mhRIvGZ3Hd9_vriEyM7RcGYgekuJIJ2EBXG-768bQ/viewform";
 
 // favicon: simple "A" monogram, self-contained SVG data URI (no external requests)
 const FAVICON = `data:image/svg+xml,${encodeURIComponent(
@@ -54,6 +55,10 @@ const STYLE = `
   .cta-box p { margin: 0 0 10px; font-size: 0.9rem; color: #333; }
   .cta { display: inline-block; padding: 10px 20px; background: #1a1a1a; color: #fff !important; border-radius: 6px; text-decoration: none; font-size: 0.88rem; font-weight: 600; }
 
+  .newsletter-box { margin: 0 0 32px; padding: 20px 22px; background: #1d4ed8; border-radius: 12px; color: #fff; }
+  .newsletter-box p { margin: 0 0 12px; font-size: 0.92rem; }
+  .newsletter-box .cta { background: #fff; color: #1d4ed8 !important; }
+
   table { border-collapse: collapse; width: 100%; margin: 16px 0; }
   th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; font-size: 0.95rem; }
   th { background: #f5f5f3; }
@@ -93,6 +98,7 @@ function layout({ title, description, contentHtml, isIndex, url }) {
   <nav>
     <a href="${root}index.html">記事一覧</a>
     <a href="${root}consulting.html">法人向けAI活用診断・ご相談</a>
+    <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
 </header>
 <main>
@@ -188,7 +194,13 @@ ${post.bodyHtml}
     writeFileSync(join(DOCS_POSTS_DIR, `${post.slug}.html`), html, "utf8");
   }
 
-  const indexContent = `<ul class="post-list">
+  const newsletterBox = `<div class="newsletter-box">
+  <p>AI/業務効率化の新着記事・お知らせをメールで受け取りたい方はこちら(不定期配信)。</p>
+  <a class="cta" href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メールで登録する →</a>
+</div>`;
+
+  const indexContent = `${newsletterBox}
+<ul class="post-list">
 ${posts
   .map(
     (p) => `  <li>
