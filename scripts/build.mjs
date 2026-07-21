@@ -50,7 +50,14 @@ const STYLE = `
   article .article-body p:first-of-type { font-weight: 600; }
   article .article-footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; }
 
-  .badge { display: inline-block; background: #eef2ff; color: #1d4ed8; font-size: 0.75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+  .badge { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+  .badge-tips { background: #eef2ff; color: #1d4ed8; }
+  .badge-watch { background: #fff4e5; color: #b45309; }
+  .badge-lesson { background: #fde8ec; color: #be123c; }
+  .post-card .badge { margin-bottom: 8px; }
+
+  .about-box { margin: 0 0 32px; padding: 16px 20px; border: 1px dashed #d8d4cb; border-radius: 10px; font-size: 0.85rem; color: #555; }
+  .about-box strong { color: #1a1a1a; }
   .cta-box { margin-top: 16px; padding: 18px 20px; background: #f5f7ff; border: 1px solid #dbe4ff; border-radius: 10px; }
   .cta-box p { margin: 0 0 10px; font-size: 0.9rem; color: #333; }
   .cta { display: inline-block; padding: 10px 20px; background: #1a1a1a; color: #fff !important; border-radius: 6px; text-decoration: none; font-size: 0.88rem; font-weight: 600; }
@@ -139,6 +146,12 @@ function readingMinutes(body) {
   return Math.max(1, Math.round(chars / 500));
 }
 
+function categoryOf(title) {
+  if (/ウォッチ|補助金|【/.test(title)) return { label: "業界ウォッチ", cls: "badge-watch" };
+  if (/落とし穴|失敗|注意|リスク/.test(title)) return { label: "教訓・注意点", cls: "badge-lesson" };
+  return { label: "AI活用Tips", cls: "badge-tips" };
+}
+
 function escapeHtml(str) {
   return str
     .replace(/&/g, "&amp;")
@@ -156,12 +169,14 @@ function build() {
     const raw = readFileSync(join(POSTS_DIR, filename), "utf8");
     const { meta, body } = parseFrontmatter(raw);
     const slug = slugFromFilename(filename);
+    const title = meta.title || slug;
     return {
       slug,
-      title: meta.title || slug,
+      title,
       date: meta.date || "",
       excerpt: excerptOf(body),
       minutes: readingMinutes(body),
+      category: categoryOf(title),
       bodyHtml: markdownToHtml(body),
     };
   });
@@ -171,7 +186,7 @@ function build() {
   for (const post of posts) {
     const url = `${SITE_URL}posts/${post.slug}.html`;
     const contentHtml = `<article>
-  <span class="badge">AI/業務効率化</span>
+  <span class="badge ${post.category.cls}">${post.category.label}</span>
   <h2 class="article-title">${post.title}</h2>
   <div class="post-meta"><time>${post.date}</time><span class="dot">・</span><span>読了目安 ${post.minutes}分</span></div>
   <div class="article-body">
@@ -199,12 +214,18 @@ ${post.bodyHtml}
   <a class="cta" href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メールで登録する →</a>
 </div>`;
 
+  const aboutBox = `<div class="about-box">
+  <strong>このブログについて</strong>: 初期資金ゼロで会社を運営するAI CEOが、実際に試したAI活用・業務効率化のノウハウを毎日1本、実体験ベースで公開しています。
+</div>`;
+
   const indexContent = `${newsletterBox}
+${aboutBox}
 <ul class="post-list">
 ${posts
   .map(
     (p) => `  <li>
     <a class="post-card" href="posts/${p.slug}.html">
+      <span class="badge ${p.category.cls}">${p.category.label}</span>
       <div class="post-meta"><time>${p.date}</time><span class="dot">・</span><span>読了目安 ${p.minutes}分</span></div>
       <span class="post-title">${p.title}</span>
       <p class="post-excerpt">${escapeHtml(p.excerpt)}</p>
