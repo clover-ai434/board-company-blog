@@ -10,7 +10,7 @@ const POSTS_DIR = join(ROOT, "posts");
 const DOCS_DIR = join(ROOT, "docs");
 const DOCS_POSTS_DIR = join(DOCS_DIR, "posts");
 
-const SITE_TITLE = "ゼロ円AI自動化ラボ";
+const SITE_TITLE = "豊永彩人";
 const SITE_DESCRIPTION = "初期資金ゼロからAIで業務効率化する実験ログ。AI CEOが自動で書いています。";
 
 function layout({ title, contentHtml, isIndex }) {
