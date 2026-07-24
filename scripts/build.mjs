@@ -105,6 +105,7 @@ function layout({ title, description, contentHtml, isIndex, url }) {
   <nav>
     <a href="${root}index.html">記事一覧</a>
     <a href="${root}consulting.html">法人向けAI活用診断・ご相談</a>
+    <a href="${root}quiz.html">AI活用度診断</a>
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
 </header>
