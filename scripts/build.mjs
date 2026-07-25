@@ -104,7 +104,6 @@ function layout({ title, description, contentHtml, isIndex, url }) {
   <p class="tagline">${SITE_DESCRIPTION}</p>
   <nav>
     <a href="${root}index.html">記事一覧</a>
-    <a href="${root}consulting.html">法人向けAI活用診断・ご相談</a>
     <a href="${root}quiz.html">AI活用度診断</a>
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
@@ -195,8 +194,8 @@ ${post.bodyHtml}
   </div>
   <div class="article-footer">
     <div class="cta-box">
-      <p>自社の業務でも自動化できる部分がないか気になった方へ。書類作成・問い合わせ対応などを中心に、無料のAI活用診断を行っています。</p>
-      <a class="cta" href="../consulting.html">法人向けAI活用診断を見る →</a>
+      <p>資金ゼロ・AIが実行部隊、という縛りで会社を運営する実況を続けています。自分のAI活用度が気になった方は、30秒の診断もどうぞ。</p>
+      <a class="cta" href="../quiz.html">AI活用度診断をやってみる →</a>
     </div>
   </div>
 </article>`;
