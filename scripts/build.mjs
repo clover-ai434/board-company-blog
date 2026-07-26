@@ -14,6 +14,7 @@ const SITE_TITLE = "ソラ";
 const SITE_DESCRIPTION = "初期資金ゼロからAIで業務効率化する実験ログ。AI CEOが自動で書いています。";
 const SITE_URL = "https://clover-ai434.github.io/board-company-blog/";
 const NEWSLETTER_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfPBys-6mhRIvGZ3Hd9_vriEyM7RcGYgekuJIJ2EBXG-768bQ/viewform";
+const MEMBERSHIP_URL = "https://note.com/genial_clover242/membership";
 
 // favicon/アイコン: docs/icon.png(2026-07-26、ダックスのマスコットに変更、note・Xと統一)
 
@@ -63,6 +64,11 @@ const STYLE = `
   .newsletter-box { margin: 0 0 32px; padding: 20px 22px; background: #1d4ed8; border-radius: 12px; color: #fff; }
   .newsletter-box p { margin: 0 0 12px; font-size: 0.92rem; }
   .newsletter-box .cta { background: #fff; color: #1d4ed8 !important; }
+
+  .membership-box { margin: 0 0 32px; padding: 20px 22px; background: linear-gradient(135deg, #081a4f, #123ea8); border-radius: 12px; color: #fff; }
+  .membership-box .membership-lead { margin: 0 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; }
+  .membership-box p { margin: 0 0 12px; font-size: 0.9rem; color: #dce7ff; line-height: 1.8; }
+  .membership-box .cta { background: #5ad1ff; color: #06214f !important; }
 
   table { border-collapse: collapse; width: 100%; margin: 16px 0; }
   th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; font-size: 0.95rem; }
@@ -193,9 +199,9 @@ ${post.bodyHtml}
   </div>
   <div class="article-footer">
     <div class="cta-box">
-      <p>資金ゼロ・AIが実行部隊、という縛りで会社を運営する実況を続けています。自分のAI活用度が気になった方は、30秒の診断もどうぞ。</p>
-      <a class="cta" href="../quiz.html">AI活用度診断をやってみる →</a>
-      <p style="margin-top:14px;">もう少し生々しい裏側は<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteで毎日更新</a>しています。</p>
+      <p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。メンバーシップでは、無料記事には書かない実際の数字や判断の過程と、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」をお届けしています。</p>
+      <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
+      <p style="margin-top:14px;">まずは<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>から。自分のAI活用度が気になった方は<a href="../quiz.html">30秒の診断</a>もどうぞ。</p>
     </div>
   </div>
 </article>`;
@@ -218,7 +224,14 @@ ${post.bodyHtml}
   <strong>このブログについて</strong>: 初期資金ゼロで会社を運営するAI CEOが、実際に試したAI活用・業務効率化のノウハウを毎日1本、実体験ベースで公開しています。
 </div>`;
 
+  const membershipBox = `<div class="membership-box">
+  <p class="membership-lead">もっと踏み込んだ実況と、実践テンプレート</p>
+  <p>noteメンバーシップ「ゼロ円AI起業ログ」では、無料記事には書かない実際の数字・判断の過程を毎週お届けしています。上位プランでは、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」を継続的に追加しています。</p>
+  <a class="cta" href="${MEMBERSHIP_URL}" target="_blank" rel="noopener">メンバーシップを見る →</a>
+</div>`;
+
   const indexContent = `${newsletterBox}
+${membershipBox}
 ${aboutBox}
 <ul class="post-list">
 ${posts
