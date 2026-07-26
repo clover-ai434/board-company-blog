@@ -15,6 +15,12 @@ const SITE_DESCRIPTION = "初期資金ゼロからAIで業務効率化する実�
 const SITE_URL = "https://clover-ai434.github.io/board-company-blog/";
 const NEWSLETTER_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfPBys-6mhRIvGZ3Hd9_vriEyM7RcGYgekuJIJ2EBXG-768bQ/viewform";
 const MEMBERSHIP_URL = "https://note.com/genial_clover242/membership";
+// Google Search Consoleの所有権確認用トークン。
+// 取締役会がSearch Consoleで「URLプレフィックス」→「HTMLタグ」を選ぶと
+// <meta name="google-site-verification" content="XXXX"> が表示されるので、
+// その content の値(XXXX の部分)だけをここに貼れば全ページに出力される。
+// 空文字のあいだは何も出力しない(安全)。
+const GOOGLE_SITE_VERIFICATION = "";
 
 // favicon/アイコン: docs/icon.png(2026-07-26、ダックスのマスコットに変更、note・Xと統一)
 
@@ -93,7 +99,7 @@ function layout({ title, description, contentHtml, isIndex, url, jsonLd }) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title}</title>
 <meta name="description" content="${description}">
-<link rel="canonical" href="${url}">
+${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}">\n` : ""}<link rel="canonical" href="${url}">
 <link rel="icon" href="${root}icon.png">
 <meta property="og:site_name" content="${SITE_TITLE}">
 <meta property="og:title" content="${title}">
