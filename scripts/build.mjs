@@ -160,7 +160,14 @@ function stripMarkdown(text) {
 }
 
 function excerptOf(body, length = 84) {
-  const plain = stripMarkdown(body);
+  // 見出し行(## 結論 など)を飛ばし、最初の本文段落から抜粋する。
+  // 以前は本文先頭から機械的に切り出していたため、一覧の抜粋が
+  // 「結論 AIに任せる作業ほど…」のように見出し語で始まって読みにくかった(2026-07-26修正)。
+  const firstParagraph = body
+    .split(/\n/)
+    .map((l) => l.trim())
+    .filter((l) => l && !l.startsWith("#") && !l.startsWith("---"))[0];
+  const plain = stripMarkdown(firstParagraph || body);
   return plain.length > length ? plain.slice(0, length) + "…" : plain;
 }
 
