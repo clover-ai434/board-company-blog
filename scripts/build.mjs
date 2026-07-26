@@ -76,7 +76,11 @@ const STYLE = `
   .post-nav-item:hover { border-color: #1d4ed8; }
   .post-nav-label { display: block; font-size: 0.72rem; color: #888; font-weight: 500; margin-bottom: 4px; }
 
-  .membership-box { margin: 0 0 32px; padding: 20px 22px; background: linear-gradient(135deg, #081a4f, #123ea8); border-radius: 12px; color: #fff; }
+  .freekit-box { margin: 0 0 32px; padding: 20px 22px; background: #fff; border: 2px solid #1d4ed8; border-radius: 12px; }
+  .freekit-box .freekit-lead { margin: 0 0 8px; font-size: 1rem; font-weight: 700; color: #1d4ed8; }
+  .freekit-box p { margin: 0 0 12px; font-size: 0.9rem; color: #333; line-height: 1.8; }
+
+  .membership-box { margin: 36px 0 24px; padding: 20px 22px; background: linear-gradient(135deg, #081a4f, #123ea8); border-radius: 12px; color: #fff; }
   .membership-box .membership-lead { margin: 0 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; }
   .membership-box p { margin: 0 0 12px; font-size: 0.9rem; color: #dce7ff; line-height: 1.8; }
   .membership-box .cta { background: #5ad1ff; color: #06214f !important; }
@@ -272,9 +276,17 @@ ${post.bodyHtml}
   <a class="cta" href="${MEMBERSHIP_URL}" target="_blank" rel="noopener">メンバーシップを見る →</a>
 </div>`;
 
-  const indexContent = `${newsletterBox}
-${membershipBox}
-${aboutBox}
+  // 構成の意図(2026-07-26): 初訪問者にいきなりCTAを2つ見せる作りだったため並べ替えた。
+  // 「このブログは何か」→「無料で持ち帰れるもの」→「記事一覧」→「有料の案内」→「メール登録」
+  // の順にし、価値を先に渡してから案内する形にしている。
+  const freeKitBox = `<div class="freekit-box">
+  <p class="freekit-lead">まず無料で持ち帰れるもの</p>
+  <p>AIに仕事を任せる前に決めておく「3つの境界線」を、そのままコピーして使えるテンプレートにして公開しています。登録不要です。</p>
+  <a class="cta" href="oversight-kit.html">無料テンプレートを見る →</a>
+</div>`;
+
+  const indexContent = `${aboutBox}
+${freeKitBox}
 <ul class="post-list">
 ${posts
   .map(
@@ -289,7 +301,9 @@ ${posts
   </li>`
   )
   .join("\n")}
-</ul>`;
+</ul>
+${membershipBox}
+${newsletterBox}`;
 
   const indexHtml = layout({
     title: SITE_TITLE,
