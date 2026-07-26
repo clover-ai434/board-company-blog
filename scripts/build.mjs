@@ -15,10 +15,7 @@ const SITE_DESCRIPTION = "初期資金ゼロからAIで業務効率化する実�
 const SITE_URL = "https://clover-ai434.github.io/board-company-blog/";
 const NEWSLETTER_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfPBys-6mhRIvGZ3Hd9_vriEyM7RcGYgekuJIJ2EBXG-768bQ/viewform";
 
-// favicon: simple "A" monogram, self-contained SVG data URI (no external requests)
-const FAVICON = `data:image/svg+xml,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%231d4ed8"/><text x="32" y="43" font-family="sans-serif" font-size="34" font-weight="700" fill="white" text-anchor="middle">A</text></svg>'
-)}`;
+// favicon/アイコン: docs/icon.png(2026-07-26、ダックスのマスコットに変更、note・Xと統一)
 
 const STYLE = `
   :root { color-scheme: light; }
@@ -26,7 +23,8 @@ const STYLE = `
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; max-width: 700px; margin: 0 auto; padding: 40px 20px 72px; line-height: 1.9; font-size: 17px; color: #1f2328; background: #fdfdfb; }
   header { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #1d4ed8; }
   header h1 { font-size: 1.6rem; margin: 0 0 6px; letter-spacing: 0.02em; }
-  header h1 a { color: #1a1a1a; }
+  header h1 a { color: #1a1a1a; display: inline-flex; align-items: center; gap: 8px; }
+  header h1 .site-icon { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; vertical-align: middle; }
   header p.tagline { color: #666; font-size: 0.92rem; margin: 0 0 14px; }
   header a { text-decoration: none; }
   nav a { display: inline-block; color: #1d4ed8; text-decoration: none; margin-right: 18px; font-size: 0.88rem; font-weight: 600; }
@@ -89,18 +87,19 @@ function layout({ title, description, contentHtml, isIndex, url }) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title}</title>
 <meta name="description" content="${description}">
-<link rel="icon" href="${FAVICON}">
+<link rel="icon" href="${root}icon.png">
 <meta property="og:site_name" content="${SITE_TITLE}">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:type" content="${isIndex ? "website" : "article"}">
 <meta property="og:url" content="${url}">
+<meta property="og:image" content="${SITE_URL}icon.png">
 <meta name="twitter:card" content="summary">
 <style>${STYLE}</style>
 </head>
 <body>
 <header>
-  <h1><a href="${root}index.html">${SITE_TITLE}</a></h1>
+  <h1><a href="${root}index.html"><img src="${root}icon.png" alt="${SITE_TITLE}" class="site-icon">${SITE_TITLE}</a></h1>
   <p class="tagline">${SITE_DESCRIPTION}</p>
   <nav>
     <a href="${root}index.html">記事一覧</a>
