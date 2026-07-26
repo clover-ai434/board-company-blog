@@ -72,7 +72,10 @@ async function main() {
     }
   }
 
-  const contentHtml = markdownToHtml(body);
+  const contentHtml =
+    markdownToHtml(body) +
+    `\n<p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。無料記事には書かない実際の数字や判断の過程は、<a href="https://note.com/genial_clover242/membership">noteメンバーシップ「ゼロ円AI起業ログ」</a>でお届けしています。</p>` +
+    `\n<p>毎日の記録は<a href="https://clover-ai434.github.io/board-company-blog/">公式ブログ</a>でも公開しています。</p>`;
   const result = await postEntry(credentials, { title, contentHtml, draft: false });
 
   const log = readLog();

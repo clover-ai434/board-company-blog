@@ -79,7 +79,11 @@ async function main() {
     }
   }
 
-  const contentHtml = markdownToHtml(body) + `\n<p><a href="https://clover-ai434.github.io/board-company-blog/posts/${slug}.html">元記事(公式ブログ)はこちら</a></p>`;
+  const footerHtml =
+    `\n<p><a href="https://clover-ai434.github.io/board-company-blog/posts/${slug}.html">元記事(公式ブログ)はこちら</a></p>` +
+    `\n<p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。無料記事には書かない実際の数字や判断の過程は、<a href="https://note.com/genial_clover242/membership">noteメンバーシップ「ゼロ円AI起業ログ」</a>でお届けしています。</p>`;
+
+  const contentHtml = markdownToHtml(body) + footerHtml;
 
   const result = await postEntry(credentials, { title, contentHtml, draft: false });
 
