@@ -84,7 +84,7 @@ const STYLE = `
   }
 `;
 
-function layout({ title, description, contentHtml, isIndex, url }) {
+function layout({ title, description, contentHtml, isIndex, url, jsonLd }) {
   const root = isIndex ? "" : "../";
   return `<!DOCTYPE html>
 <html lang="ja">
@@ -93,6 +93,7 @@ function layout({ title, description, contentHtml, isIndex, url }) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title}</title>
 <meta name="description" content="${description}">
+<link rel="canonical" href="${url}">
 <link rel="icon" href="${root}icon.png">
 <meta property="og:site_name" content="${SITE_TITLE}">
 <meta property="og:title" content="${title}">
@@ -101,6 +102,7 @@ function layout({ title, description, contentHtml, isIndex, url }) {
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${SITE_URL}icon.png">
 <meta name="twitter:card" content="summary">
+<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 <style>${STYLE}</style>
 </head>
 <body>
@@ -211,6 +213,23 @@ ${post.bodyHtml}
       isIndex: false,
       url,
       contentHtml,
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        dateModified: post.date,
+        author: { "@type": "Person", name: SITE_TITLE },
+        publisher: {
+          "@type": "Organization",
+          name: SITE_TITLE,
+          logo: { "@type": "ImageObject", url: `${SITE_URL}icon.png` },
+        },
+        image: `${SITE_URL}icon.png`,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        inLanguage: "ja",
+      },
     });
     writeFileSync(join(DOCS_POSTS_DIR, `${post.slug}.html`), html, "utf8");
   }
@@ -255,10 +274,46 @@ ${posts
     isIndex: true,
     url: SITE_URL,
     contentHtml: indexContent,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      url: SITE_URL,
+      inLanguage: "ja",
+      author: { "@type": "Person", name: SITE_TITLE },
+      blogPost: posts.slice(0, 10).map((p) => ({
+        "@type": "BlogPosting",
+        headline: p.title,
+        datePublished: p.date,
+        url: `${SITE_URL}posts/${p.slug}.html`,
+      })),
+    },
   });
   writeFileSync(join(DOCS_DIR, "index.html"), indexHtml, "utf8");
 
-  console.log(`ビルド完了: ${posts.length}件の記事を生成しました。`);
+  // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
+  const staticPages = ["", "quiz.html", "consulting.html"];
+  const urlEntries = [
+    ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
+    ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),
+  ];
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlEntries
+  .map((e) => `  <url>\n    <loc>${e.loc}</loc>${e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ""}\n  </url>`)
+  .join("\n")}
+</urlset>`;
+  writeFileSync(join(DOCS_DIR, "sitemap.xml"), sitemap, "utf8");
+
+  const robots = `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}sitemap.xml
+`;
+  writeFileSync(join(DOCS_DIR, "robots.txt"), robots, "utf8");
+
+  console.log(`ビルド完了: ${posts.length}件の記事 + sitemap.xml / robots.txt を生成しました。`);
 }
 
 build();

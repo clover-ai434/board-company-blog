@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clover-ai434.github.io/board-company-blog/sitemap.xml
