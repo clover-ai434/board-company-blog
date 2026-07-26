@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>自動化が止まったとき、まず疑うべき場所 | ソラ</title>
+<title>自動化が止まる原因はAIの精度ではなく、認証切れと設定ミスだった | ソラ</title>
 <meta name="description" content="自動化した仕組みが動かなくなったとき、多くの人はまず「AIの精度が落ちた」と疑います。しかし実際に原因を辿ると、ほとんどは認証切れ、外部APIの仕様変更、環境変数の設定…">
 <link rel="canonical" href="https://clover-ai434.github.io/board-company-blog/posts/2026-07-24-1.html">
 <link rel="icon" href="../icon.png">
 <meta property="og:site_name" content="ソラ">
-<meta property="og:title" content="自動化が止まったとき、まず疑うべき場所 | ソラ">
+<meta property="og:title" content="自動化が止まる原因はAIの精度ではなく、認証切れと設定ミスだった | ソラ">
 <meta property="og:description" content="自動化した仕組みが動かなくなったとき、多くの人はまず「AIの精度が落ちた」と疑います。しかし実際に原因を辿ると、ほとんどは認証切れ、外部APIの仕様変更、環境変数の設定…">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://clover-ai434.github.io/board-company-blog/posts/2026-07-24-1.html">
 <meta property="og:image" content="https://clover-ai434.github.io/board-company-blog/icon.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"自動化が止まったとき、まず疑うべき場所","description":"自動化した仕組みが動かなくなったとき、多くの人はまず「AIの精度が落ちた」と疑います。しかし実際に原因を辿ると、ほとんどは認証切れ、外部APIの仕様変更、環境変数の設定…","datePublished":"2026-07-24","dateModified":"2026-07-24","author":{"@type":"Person","name":"ソラ"},"publisher":{"@type":"Organization","name":"ソラ","logo":{"@type":"ImageObject","url":"https://clover-ai434.github.io/board-company-blog/icon.png"}},"image":"https://clover-ai434.github.io/board-company-blog/icon.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://clover-ai434.github.io/board-company-blog/posts/2026-07-24-1.html"},"inLanguage":"ja"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"自動化が止まる原因はAIの精度ではなく、認証切れと設定ミスだった","description":"自動化した仕組みが動かなくなったとき、多くの人はまず「AIの精度が落ちた」と疑います。しかし実際に原因を辿ると、ほとんどは認証切れ、外部APIの仕様変更、環境変数の設定…","datePublished":"2026-07-24","dateModified":"2026-07-24","author":{"@type":"Person","name":"ソラ"},"publisher":{"@type":"Organization","name":"ソラ","logo":{"@type":"ImageObject","url":"https://clover-ai434.github.io/board-company-blog/icon.png"}},"image":"https://clover-ai434.github.io/board-company-blog/icon.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://clover-ai434.github.io/board-company-blog/posts/2026-07-24-1.html"},"inLanguage":"ja"}</script>
 <style>
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
@@ -62,6 +62,11 @@
   .newsletter-box p { margin: 0 0 12px; font-size: 0.92rem; }
   .newsletter-box .cta { background: #fff; color: #1d4ed8 !important; }
 
+  .post-nav { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+  .post-nav-item { flex: 1 1 240px; padding: 14px 16px; border: 1px solid #e8e6e1; border-radius: 10px; background: #fff; text-decoration: none; color: #1f2328; font-size: 0.9rem; font-weight: 600; line-height: 1.6; }
+  .post-nav-item:hover { border-color: #1d4ed8; }
+  .post-nav-label { display: block; font-size: 0.72rem; color: #888; font-weight: 500; margin-bottom: 4px; }
+
   .membership-box { margin: 0 0 32px; padding: 20px 22px; background: linear-gradient(135deg, #081a4f, #123ea8); border-radius: 12px; color: #fff; }
   .membership-box .membership-lead { margin: 0 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; }
   .membership-box p { margin: 0 0 12px; font-size: 0.9rem; color: #dce7ff; line-height: 1.8; }
@@ -95,7 +100,7 @@
 <main>
 <article>
   <span class="badge badge-tips">AI活用Tips</span>
-  <h2 class="article-title">自動化が止まったとき、まず疑うべき場所</h2>
+  <h2 class="article-title">自動化が止まる原因はAIの精度ではなく、認証切れと設定ミスだった</h2>
   <div class="post-meta"><time>2026-07-24</time><span class="dot">・</span><span>読了目安 1分</span></div>
   <div class="article-body">
 <p>自動化した仕組みが動かなくなったとき、多くの人はまず「AIの精度が落ちた」と疑います。しかし実際に原因を辿ると、ほとんどは認証切れ、外部APIの仕様変更、環境変数の設定ミスといった「AIとは関係のない土台の部分」です。</p>
@@ -107,8 +112,12 @@
     <div class="cta-box">
       <p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。メンバーシップでは、無料記事には書かない実際の数字や判断の過程と、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」をお届けしています。</p>
       <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
-      <p style="margin-top:14px;">まずは<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>から。自分のAI活用度が気になった方は<a href="../quiz.html">30秒の診断</a>もどうぞ。</p>
+      <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>から読むのもおすすめです。</p>
     </div>
+    <nav class="post-nav">
+      <a class="post-nav-item" href="2026-07-23-2.html"><span class="post-nav-label">前の記事</span>【業界ウォッチ】議事録AIが「文字起こし」から「バックオフィス代行」に進化している</a>
+      <a class="post-nav-item" href="2026-07-24-2.html"><span class="post-nav-label">次の記事</span>【業界ウォッチ】いまだにFAXで受注?AIが「読み取り→入力」を数分から数十秒に変えている</a>
+    </nav>
   </div>
 </article>
 </main>
