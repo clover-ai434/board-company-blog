@@ -128,6 +128,7 @@ ${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${G
     <a href="${root}index.html">記事一覧</a>
     <a href="${root}oversight-kit.html">無料テンプレート</a>
     <a href="${root}about.html">このブログについて</a>
+    <a href="${root}boundary-check.html">権限境界チェック</a>
     <a href="${root}quiz.html">AI活用度診断</a>
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
@@ -338,7 +339,7 @@ ${newsletterBox}`;
   writeFileSync(join(DOCS_DIR, "index.html"), indexHtml, "utf8");
 
   // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
-  const staticPages = ["", "oversight-kit.html", "about.html", "quiz.html", "consulting.html"];
+  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "consulting.html"];
   const urlEntries = [
     ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
     ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),
