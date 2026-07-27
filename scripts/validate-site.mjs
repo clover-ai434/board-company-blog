@@ -18,6 +18,21 @@ function requireFile(path, reason) {
   }
 }
 
+function checkLiteralLocalLinks(file, html) {
+  for (const match of html.matchAll(/href="([^"]+)"/g)) {
+    const href = match[1];
+    // 診断結果のCTAなど、JavaScriptが実行時に組み立てるhrefは除外する。
+    if (/[+']/.test(href)) continue;
+    if (/^(?:https?:|mailto:|tel:|#)/i.test(href)) continue;
+    const targetPath = href.split(/[?#]/, 1)[0];
+    if (!targetPath) continue;
+    const target = join(DOCS_DIR, dirname(file), targetPath);
+    if (!existsSync(target)) {
+      errors.push(`${file}: リンク先がありません (${href})`);
+    }
+  }
+}
+
 for (const path of [
   "index.html",
   "oversight-kit.html",
@@ -82,6 +97,14 @@ if (errors.length === 0) {
     if (html.includes("consulting.html")) {
       errors.push(`posts/${name}: 終了済みconsulting.htmlへの導線が残っています`);
     }
+  }
+
+  const staticHtmlFiles = readdirSync(DOCS_DIR)
+    .filter((name) => name.endsWith(".html"))
+    .map((name) => ({ file: name, html: read(name) }));
+  for (const { file, html } of staticHtmlFiles) checkLiteralLocalLinks(file, html);
+  for (const name of postFiles) {
+    checkLiteralLocalLinks(`posts/${name}`, read(`posts/${name}`));
   }
 }
 
