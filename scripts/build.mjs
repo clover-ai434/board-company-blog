@@ -136,7 +136,7 @@ ${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${G
 ${contentHtml}
 </main>
 <footer>
-  <span>© ${new Date().getFullYear()} ${SITE_TITLE}</span>
+  <span>© ${new Date().getFullYear()} ${SITE_TITLE} — <a href="https://aiftr.hatenablog.com/" target="_blank" rel="noopener">はてなブログ版</a> / <a href="https://note.com/genial_clover242" target="_blank" rel="noopener">note</a> / <a href="https://x.com/CloverAIalfs" target="_blank" rel="noopener">X</a></span>
   <span><a href="mailto:cairenliyong@gmail.com">お問い合わせ</a></span>
 </footer>
 </body>
