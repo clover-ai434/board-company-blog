@@ -82,6 +82,10 @@ if (errors.length === 0) {
   if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"')) {
     errors.push("search.html: 検索フォームまたは検索結果領域がありません");
   }
+  const index = read("index.html");
+  if (!index.includes('"@type":"SearchAction"') || !index.includes("search.html?q={search_term_string}")) {
+    errors.push("index.html: 検索アクションの構造化データがありません");
+  }
   const feed = read("feed.xml");
   if (!feed.includes('<rss version="2.0"') || !feed.includes(`<link>${SITE_URL}</link>`)) {
     errors.push("feed.xml: RSSの基本構造がありません");

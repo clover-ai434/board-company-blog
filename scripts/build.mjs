@@ -422,6 +422,11 @@ ${newsletterBox}`;
       url: SITE_URL,
       inLanguage: "ja",
       author: { "@type": "Person", name: SITE_TITLE },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: `${SITE_URL}search.html?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
       blogPost: posts.slice(0, 10).map((p) => ({
         "@type": "BlogPosting",
         headline: p.title,
@@ -513,7 +518,10 @@ ${newsletterBox}`;
     });
     render();
   })();
-</script>`;
+</script>
+${freeKitBox}
+${membershipBox}
+${newsletterBox}`;
   const searchHtml = layout({
     title: `記事検索 | ${SITE_TITLE}`,
     description: "ソラのAI活用・業務効率化ブログの記事をキーワードで検索できます。",
