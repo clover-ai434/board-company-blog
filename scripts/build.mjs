@@ -156,7 +156,13 @@ ${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${G
 ${publishedMeta}
 <meta property="og:url" content="${safeUrl}">
 <meta property="og:image" content="${SITE_URL}icon.png">
+<meta property="og:image:alt" content="${safeTitle} — ${SITE_TITLE}のアイコン">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="${safeTitle}">
+<meta name="twitter:description" content="${safeDescription}">
+<meta name="twitter:image" content="${SITE_URL}icon.png">
+<meta name="twitter:image:alt" content="${safeTitle} — ${SITE_TITLE}のアイコン">
+<meta name="theme-color" content="#1d4ed8">
 <script type="application/ld+json">${jsonLdScript}</script>
 ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}"></script>
 <script>

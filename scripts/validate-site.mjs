@@ -33,6 +33,22 @@ function checkLiteralLocalLinks(file, html) {
   }
 }
 
+function checkShareMetadata(file, html) {
+  for (const marker of [
+    '<meta property="og:title"',
+    '<meta property="og:description"',
+    '<meta property="og:image"',
+    '<meta property="og:image:alt"',
+    '<meta name="twitter:card"',
+    '<meta name="twitter:title"',
+    '<meta name="twitter:description"',
+    '<meta name="twitter:image"',
+    '<meta name="theme-color"',
+  ]) {
+    if (!html.includes(marker)) errors.push(`${file}: 共有用メタデータがありません (${marker})`);
+  }
+}
+
 for (const path of [
   "index.html",
   "404.html",
@@ -120,9 +136,15 @@ if (errors.length === 0) {
   const staticHtmlFiles = readdirSync(DOCS_DIR)
     .filter((name) => name.endsWith(".html"))
     .map((name) => ({ file: name, html: read(name) }));
-  for (const { file, html } of staticHtmlFiles) checkLiteralLocalLinks(file, html);
+  for (const { file, html } of staticHtmlFiles) {
+    checkLiteralLocalLinks(file, html);
+    const excludedStaticPage = file === "404.html" || file === "consulting.html" || file.startsWith("google");
+    if (!excludedStaticPage) checkShareMetadata(file, html);
+  }
   for (const name of postFiles) {
-    checkLiteralLocalLinks(`posts/${name}`, read(`posts/${name}`));
+    const html = read(`posts/${name}`);
+    checkLiteralLocalLinks(`posts/${name}`, html);
+    checkShareMetadata(`posts/${name}`, html);
   }
 }
 
