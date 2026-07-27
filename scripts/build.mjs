@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { parseFrontmatter } from "./frontmatter.mjs";
@@ -246,6 +246,12 @@ function build() {
   });
 
   posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  // 記事Markdownを削除・改名したとき、古い生成HTMLを残さない。
+  // frontmatter全件検証後に実行するため、入力不備で先に生成物を失うことはない。
+  for (const filename of readdirSync(DOCS_POSTS_DIR).filter((f) => f.endsWith(".html"))) {
+    unlinkSync(join(DOCS_POSTS_DIR, filename));
+  }
 
   for (const [i, post] of posts.entries()) {
     const url = `${SITE_URL}posts/${post.slug}.html`;

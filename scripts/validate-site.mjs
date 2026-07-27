@@ -46,6 +46,7 @@ if (errors.length === 0) {
   }
 
   const sitePath = new URL(SITE_URL).pathname;
+  const sitemapPages = new Set();
   for (const loc of locs) {
     let pathname;
     try {
@@ -59,6 +60,7 @@ if (errors.length === 0) {
       continue;
     }
     const page = decodeURIComponent(pathname.slice(sitePath.length)) || "index.html";
+    sitemapPages.add(page);
     requireFile(page, `サイトマップにあるページが存在しません (${loc})`);
   }
 
@@ -67,6 +69,9 @@ if (errors.length === 0) {
     errors.push("docs/posts: 生成された記事がありません");
   }
   for (const name of postFiles) {
+    if (!sitemapPages.has(`posts/${name}`)) {
+      errors.push(`sitemap.xml: 記事${name}がサイトマップにありません`);
+    }
     const html = read(`posts/${name}`);
     if (!html.includes('<link rel="canonical"')) {
       errors.push(`posts/${name}: canonicalがありません`);
