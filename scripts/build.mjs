@@ -147,6 +147,7 @@ function layout({ title, description, contentHtml, isIndex, url, jsonLd, publish
 <meta name="description" content="${safeDescription}">
 ${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}">\n` : ""}<link rel="canonical" href="${safeUrl}">
 <link rel="icon" href="${root}icon.png">
+<link rel="alternate" type="application/rss+xml" title="${SITE_TITLE} RSS" href="${root}feed.xml">
 <meta property="og:site_name" content="${SITE_TITLE}">
 <meta property="og:title" content="${safeTitle}">
 <meta property="og:description" content="${safeDescription}">
@@ -237,6 +238,10 @@ function escapeHtml(str) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function escapeXml(str) {
+  return escapeHtml(str).replace(/'/g, "&apos;");
 }
 
 function isIsoDate(value) {
@@ -543,7 +548,26 @@ Sitemap: ${SITE_URL}sitemap.xml
 `;
   writeFileSync(join(DOCS_DIR, "robots.txt"), robots, "utf8");
 
-  console.log(`ビルド完了: ${posts.length}件の記事 + sitemap.xml / robots.txt を生成しました。`);
+  const feed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeXml(SITE_TITLE)}</title>
+    <description>${escapeXml(SITE_DESCRIPTION)}</description>
+    <link>${escapeXml(SITE_URL)}</link>
+    <atom:link href="${escapeXml(`${SITE_URL}feed.xml`)}" rel="self" type="application/rss+xml" />
+${posts.map((post) => `    <item>
+      <title>${escapeXml(post.title)}</title>
+      <description>${escapeXml(post.excerpt)}</description>
+      <link>${escapeXml(`${SITE_URL}posts/${post.slug}.html`)}</link>
+      <guid isPermaLink="true">${escapeXml(`${SITE_URL}posts/${post.slug}.html`)}</guid>
+      <pubDate>${new Date(`${post.date}T00:00:00+09:00`).toUTCString()}</pubDate>
+    </item>`).join("\n")}
+  </channel>
+</rss>
+`;
+  writeFileSync(join(DOCS_DIR, "feed.xml"), feed, "utf8");
+
+  console.log(`ビルド完了: ${posts.length}件の記事 + sitemap.xml / robots.txt / feed.xml を生成しました。`);
 }
 
 build();

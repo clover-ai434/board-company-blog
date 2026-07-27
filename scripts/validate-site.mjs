@@ -43,6 +43,7 @@ for (const path of [
   "search.html",
   "robots.txt",
   "sitemap.xml",
+  "feed.xml",
 ]) {
   requireFile(path, "必須ファイルがありません");
 }
@@ -64,6 +65,10 @@ if (errors.length === 0) {
   const search = read("search.html");
   if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"')) {
     errors.push("search.html: 検索フォームまたは検索結果領域がありません");
+  }
+  const feed = read("feed.xml");
+  if (!feed.includes('<rss version="2.0"') || !feed.includes(`<link>${SITE_URL}</link>`)) {
+    errors.push("feed.xml: RSSの基本構造がありません");
   }
 
   const sitePath = new URL(SITE_URL).pathname;
@@ -105,6 +110,10 @@ if (errors.length === 0) {
     }
     if (html.includes("consulting.html")) {
       errors.push(`posts/${name}: 終了済みconsulting.htmlへの導線が残っています`);
+    }
+    const slug = name.replace(/\.html$/, "");
+    if (!feed.includes(`${SITE_URL}posts/${slug}.html`)) {
+      errors.push(`feed.xml: 記事${name}がRSSにありません`);
     }
   }
 
