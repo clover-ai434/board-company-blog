@@ -7,6 +7,7 @@
     "build": "node scripts/build.mjs",
     "new-post": "node scripts/new-post.mjs",
     "test": "node --test",
+    "validate:content": "node scripts/validate-content.mjs",
     "validate:site": "node scripts/validate-site.mjs"
   }
 }

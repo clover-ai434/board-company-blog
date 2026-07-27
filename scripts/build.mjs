@@ -106,12 +106,15 @@ const STYLE = `
   }
 `;
 
-function layout({ title, description, contentHtml, isIndex, url, jsonLd }) {
+function layout({ title, description, contentHtml, isIndex, url, jsonLd, publishedAt }) {
   const root = isIndex ? "" : "../";
   const safeTitle = escapeHtml(title);
   const safeDescription = escapeHtml(description);
   const safeUrl = escapeHtml(url);
   const jsonLdScript = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+  const publishedMeta = !isIndex && publishedAt
+    ? `<meta property="article:published_time" content="${escapeHtml(publishedAt)}">\n`
+    : "";
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -125,6 +128,8 @@ ${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${G
 <meta property="og:title" content="${safeTitle}">
 <meta property="og:description" content="${safeDescription}">
 <meta property="og:type" content="${isIndex ? "website" : "article"}">
+<meta property="og:locale" content="ja_JP">
+${publishedMeta}
 <meta property="og:url" content="${safeUrl}">
 <meta property="og:image" content="${SITE_URL}icon.png">
 <meta name="twitter:card" content="summary">
@@ -210,6 +215,12 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function isIsoDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
+}
+
 function build() {
   mkdirSync(DOCS_POSTS_DIR, { recursive: true });
 
@@ -218,6 +229,9 @@ function build() {
   const posts = files.map((filename) => {
     const raw = readFileSync(join(POSTS_DIR, filename), "utf8");
     const { meta, body } = parseFrontmatter(raw);
+    if (!meta.title?.trim() || !isIsoDate(meta.date)) {
+      throw new Error(`frontmatterが不正です: posts/${filename} (titleとdate: YYYY-MM-DDが必須)`);
+    }
     const slug = slugFromFilename(filename);
     const title = meta.title || slug;
     return {
@@ -248,7 +262,7 @@ ${newer ? `      <a class="post-nav-item" href="${newer.slug}.html"><span class=
     const contentHtml = `<article>
   <span class="badge ${post.category.cls}">${post.category.label}</span>
   <h2 class="article-title">${escapeHtml(post.title)}</h2>
-  <div class="post-meta"><time>${escapeHtml(post.date)}</time><span class="dot">・</span><span>読了目安 ${post.minutes}分</span></div>
+  <div class="post-meta"><time datetime="${escapeHtml(post.date)}">${escapeHtml(post.date)}</time><span class="dot">・</span><span>読了目安 ${post.minutes}分</span></div>
   <div class="article-body">
 ${post.bodyHtml}
   </div>
@@ -266,6 +280,7 @@ ${post.bodyHtml}
       description: post.excerpt,
       isIndex: false,
       url,
+      publishedAt: post.date,
       contentHtml,
       jsonLd: {
         "@context": "https://schema.org",
@@ -320,7 +335,7 @@ ${posts
     (p) => `  <li>
     <a class="post-card" href="posts/${p.slug}.html">
       <span class="badge ${p.category.cls}">${p.category.label}</span>
-      <div class="post-meta"><time>${escapeHtml(p.date)}</time><span class="dot">・</span><span>読了目安 ${p.minutes}分</span></div>
+      <div class="post-meta"><time datetime="${escapeHtml(p.date)}">${escapeHtml(p.date)}</time><span class="dot">・</span><span>読了目安 ${p.minutes}分</span></div>
       <span class="post-title">${escapeHtml(p.title)}</span>
       <p class="post-excerpt">${escapeHtml(p.excerpt)}</p>
       <span class="post-more">続きを読む →</span>

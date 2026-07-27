@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { parseFrontmatter } from "../scripts/frontmatter.mjs";
 import { markdownToHtml } from "../scripts/markdown.mjs";
+import { todayIso } from "../scripts/new-post.mjs";
 
 test("parseFrontmatter accepts CRLF and a UTF-8 BOM", () => {
   const raw = "\uFEFF---\r\ntitle: テスト記事\r\ndate: 2026-07-27\r\n---\r\n本文です。";
@@ -25,4 +26,8 @@ test("markdown escapes HTML and blocks unsafe link protocols", () => {
   assert.match(html, /href="https:\/\/example\.com\/\?a=1&amp;b=2"/);
   assert.match(html, /href="#">危険なリンク<\/a>/);
   assert.doesNotMatch(html, /<script>/);
+});
+
+test("todayIso uses Japan time after UTC day rollover", () => {
+  assert.equal(todayIso(new Date("2026-07-27T15:30:00Z")), "2026-07-28");
 });
