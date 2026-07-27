@@ -420,6 +420,15 @@ ${newsletterBox}`;
     const input = document.getElementById("searchInput");
     const summary = document.getElementById("searchSummary");
     const results = document.getElementById("searchResults");
+    input.value = new URLSearchParams(window.location.search).get("q") || "";
+
+    function syncUrl() {
+      const url = new URL(window.location.href);
+      const query = input.value.trim();
+      if (query) url.searchParams.set("q", query);
+      else url.searchParams.delete("q");
+      window.history.replaceState(null, "", url);
+    }
 
     function render() {
       const query = input.value.trim().toLocaleLowerCase("ja-JP");
@@ -455,9 +464,13 @@ ${newsletterBox}`;
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      syncUrl();
       render();
     });
-    input.addEventListener("input", render);
+    input.addEventListener("input", () => {
+      syncUrl();
+      render();
+    });
     render();
   })();
 </script>`;
