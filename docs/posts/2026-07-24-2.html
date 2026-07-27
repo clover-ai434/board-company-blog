@@ -70,6 +70,14 @@
   .post-nav-item:hover { border-color: #1d4ed8; }
   .post-nav-label { display: block; font-size: 0.72rem; color: #888; font-weight: 500; margin-bottom: 4px; }
 
+  .related-posts { margin-top: 28px; }
+  .related-posts h3 { margin: 0 0 10px; font-size: 1.05rem; }
+  .related-post-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .related-post-card { display: block; padding: 13px 14px; border: 1px solid #e8e6e1; border-radius: 9px; background: #fff; color: #1f2328; text-decoration: none; line-height: 1.55; }
+  .related-post-card:hover { border-color: #1d4ed8; }
+  .related-post-card strong { display: block; font-size: 0.88rem; }
+  .related-post-meta { display: block; margin-top: 6px; color: #888; font-size: 0.75rem; }
+
   .freekit-box { margin: 0 0 32px; padding: 20px 22px; background: #fff; border: 2px solid #1d4ed8; border-radius: 12px; }
   .freekit-box .freekit-lead { margin: 0 0 8px; font-size: 1rem; font-weight: 700; color: #1d4ed8; }
   .freekit-box p { margin: 0 0 12px; font-size: 0.9rem; color: #333; line-height: 1.8; }
@@ -104,6 +112,7 @@
     body { padding: 28px 16px 56px; font-size: 16px; }
     header h1 { font-size: 1.4rem; }
     .post-card { padding: 16px 18px; }
+    .related-post-list { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -138,6 +147,26 @@
       <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
       <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="../quiz.html">30秒のAI活用度診断</a>で自社の境界線を確認してから、<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>を読むのもおすすめです。</p>
     </div>
+    <section class="related-posts" aria-labelledby="related-posts-title">
+    <h3 id="related-posts-title">関連記事</h3>
+    <div class="related-post-list">
+      <a class="related-post-card" href="../posts/2026-07-27-2.html">
+        <span class="post-nav-label">業界ウォッチ / 2026-07-27</span>
+        <strong>【業界ウォッチ】電話に出られない中小企業が急増、「AI一次受付」が月数千円で普及中</strong>
+        <span class="related-post-meta">人手不足で電話対応の担当者を置けない中小企業向けに、AIが着信を自動で受け答えする「AI電話代行」サービスの導入が広がっている。従来の留守電と違い、AIが用件を聞き取っ…</span>
+      </a>
+      <a class="related-post-card" href="../posts/2026-07-23-2.html">
+        <span class="post-nav-label">業界ウォッチ / 2026-07-23</span>
+        <strong>【業界ウォッチ】議事録AIが「文字起こし」から「バックオフィス代行」に進化している</strong>
+        <span class="related-post-meta">最近のAI議事録ツールは、日本語の音声認識精度が95〜98%台に達し、実務で十分使えるレベルになっています。ここまでは想像通りかもしれませんが、変化はその先です。多くの…</span>
+      </a>
+      <a class="related-post-card" href="../posts/2026-07-20-1.html">
+        <span class="post-nav-label">業界ウォッチ / 2026-07-20</span>
+        <strong>【業界ウォッチ】AI導入補助金2026と広がる「AIエージェント実装」の動き</strong>
+        <span class="related-post-meta">今週は、中小企業のAI導入を後押しする2つの動きに注目します。</span>
+      </a>
+    </div>
+  </section>
     <nav class="post-nav">
       <a class="post-nav-item" href="2026-07-24-1.html"><span class="post-nav-label">前の記事</span>自動化が止まる原因はAIの精度ではなく、認証切れと設定ミスだった</a>
       <a class="post-nav-item" href="2026-07-25-1.html"><span class="post-nav-label">次の記事</span>定例会議を「共有」と「議論」に分ける。共有はAI要約に任せて30分浮かせる</a>

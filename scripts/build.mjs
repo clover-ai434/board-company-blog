@@ -83,6 +83,14 @@ const STYLE = `
   .post-nav-item:hover { border-color: #1d4ed8; }
   .post-nav-label { display: block; font-size: 0.72rem; color: #888; font-weight: 500; margin-bottom: 4px; }
 
+  .related-posts { margin-top: 28px; }
+  .related-posts h3 { margin: 0 0 10px; font-size: 1.05rem; }
+  .related-post-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .related-post-card { display: block; padding: 13px 14px; border: 1px solid #e8e6e1; border-radius: 9px; background: #fff; color: #1f2328; text-decoration: none; line-height: 1.55; }
+  .related-post-card:hover { border-color: #1d4ed8; }
+  .related-post-card strong { display: block; font-size: 0.88rem; }
+  .related-post-meta { display: block; margin-top: 6px; color: #888; font-size: 0.75rem; }
+
   .freekit-box { margin: 0 0 32px; padding: 20px 22px; background: #fff; border: 2px solid #1d4ed8; border-radius: 12px; }
   .freekit-box .freekit-lead { margin: 0 0 8px; font-size: 1rem; font-weight: 700; color: #1d4ed8; }
   .freekit-box p { margin: 0 0 12px; font-size: 0.9rem; color: #333; line-height: 1.8; }
@@ -117,6 +125,7 @@ const STYLE = `
     body { padding: 28px 16px 56px; font-size: 16px; }
     header h1 { font-size: 1.4rem; }
     .post-card { padding: 16px 18px; }
+    .related-post-list { grid-template-columns: 1fr; }
   }
 `;
 
@@ -280,6 +289,25 @@ ${older ? `      <a class="post-nav-item" href="${older.slug}.html"><span class=
 ${newer ? `      <a class="post-nav-item" href="${newer.slug}.html"><span class="post-nav-label">次の記事</span>${escapeHtml(newer.title)}</a>` : ""}
     </nav>`
         : "";
+    const relatedPosts = posts
+      .filter((candidate) => candidate.slug !== post.slug)
+      .sort((a, b) => {
+        const categoryScore = Number(b.category.cls === post.category.cls) - Number(a.category.cls === post.category.cls);
+        return categoryScore || (a.date < b.date ? 1 : -1);
+      })
+      .slice(0, 3);
+    const relatedPostsHtml = relatedPosts.length
+      ? `<section class="related-posts" aria-labelledby="related-posts-title">
+    <h3 id="related-posts-title">関連記事</h3>
+    <div class="related-post-list">
+${relatedPosts.map((candidate) => `      <a class="related-post-card" href="../posts/${candidate.slug}.html">
+        <span class="post-nav-label">${escapeHtml(candidate.category.label)} / ${escapeHtml(candidate.date)}</span>
+        <strong>${escapeHtml(candidate.title)}</strong>
+        <span class="related-post-meta">${escapeHtml(candidate.excerpt)}</span>
+      </a>`).join("\n")}
+    </div>
+  </section>`
+      : "";
     const contentHtml = `<article>
   <span class="badge ${post.category.cls}">${post.category.label}</span>
   <h2 class="article-title">${escapeHtml(post.title)}</h2>
@@ -293,6 +321,7 @@ ${post.bodyHtml}
       <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
       <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="../quiz.html">30秒のAI活用度診断</a>で自社の境界線を確認してから、<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>を読むのもおすすめです。</p>
     </div>
+    ${relatedPostsHtml}
     ${relatedHtml}
   </div>
 </article>`;

@@ -100,6 +100,9 @@ if (errors.length === 0) {
     if (!html.includes("../quiz.html")) {
       errors.push(`posts/${name}: AI活用度診断への導線がありません`);
     }
+    if (postFiles.length > 1 && !html.includes('class="related-posts"')) {
+      errors.push(`posts/${name}: 関連記事の内部リンク導線がありません`);
+    }
     if (html.includes("consulting.html")) {
       errors.push(`posts/${name}: 終了済みconsulting.htmlへの導線が残っています`);
     }
