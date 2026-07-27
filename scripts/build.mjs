@@ -106,6 +106,9 @@ const STYLE = `
   .search-form input { display: block; width: 100%; margin-top: 6px; padding: 11px 13px; border: 1px solid #cfcfc9; border-radius: 7px; background: #fff; color: #1f2328; font: inherit; }
   .search-form input:focus { outline: 3px solid rgba(29, 78, 216, 0.18); border-color: #1d4ed8; }
   .search-form button { border: 0; cursor: pointer; }
+  .search-filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 6px; }
+  .filter-button { padding: 6px 12px; border: 1px solid #cfcfc9; border-radius: 999px; background: #fff; color: #555; cursor: pointer; font: inherit; font-size: 0.8rem; }
+  .filter-button:hover, .filter-button.active { border-color: #1d4ed8; background: #eef2ff; color: #1d4ed8; }
   .search-summary { min-height: 1.8em; color: #666; font-size: 0.88rem; }
   .search-results { margin-top: 10px; }
   .search-result { display: block; padding: 16px 18px; margin-bottom: 12px; border: 1px solid #e8e6e1; border-radius: 10px; background: #fff; color: inherit; text-decoration: none; }
@@ -446,6 +449,11 @@ ${newsletterBox}`;
     category: p.category,
   }));
   const searchDataScript = JSON.stringify(searchData).replace(/</g, "\\u003c");
+  const searchCategories = [...new Map(posts.map((p) => [p.category.label, p.category])).entries()];
+  const categoryFilters = `<div class="search-filters" aria-label="カテゴリで絞り込む">
+    <button class="filter-button active" type="button" data-category-filter="">すべて</button>
+${searchCategories.map(([label]) => `    <button class="filter-button" type="button" data-category-filter="${escapeHtml(label)}">${escapeHtml(label)}</button>`).join("\n")}
+  </div>`;
   const searchContent = `<section class="search-page">
   <h2>記事検索</h2>
   <p>タイトル・概要・カテゴリから、過去の記事をキーワードで探せます。</p>
@@ -455,6 +463,7 @@ ${newsletterBox}`;
     </label>
     <button class="cta" type="submit">検索</button>
   </form>
+  ${categoryFilters}
   <p class="search-summary" id="searchSummary" aria-live="polite"></p>
   <div class="search-results" id="searchResults"></div>
 </section>
@@ -465,22 +474,32 @@ ${newsletterBox}`;
     const input = document.getElementById("searchInput");
     const summary = document.getElementById("searchSummary");
     const results = document.getElementById("searchResults");
-    input.value = new URLSearchParams(window.location.search).get("q") || "";
+    const filterButtons = [...document.querySelectorAll("[data-category-filter]")];
+    const initialParams = new URLSearchParams(window.location.search);
+    let selectedCategory = initialParams.get("category") || "";
+    input.value = initialParams.get("q") || "";
+    if (!filterButtons.some((button) => button.dataset.categoryFilter === selectedCategory)) selectedCategory = "";
 
     function syncUrl() {
       const url = new URL(window.location.href);
       const query = input.value.trim();
       if (query) url.searchParams.set("q", query);
       else url.searchParams.delete("q");
+      if (selectedCategory) url.searchParams.set("category", selectedCategory);
+      else url.searchParams.delete("category");
       window.history.replaceState(null, "", url);
     }
 
     function render() {
       const query = input.value.trim().toLocaleLowerCase("ja-JP");
-      const matches = query
-        ? posts.filter((post) => [post.title, post.excerpt, post.category.label, post.date].join(" ").toLocaleLowerCase("ja-JP").includes(query))
-        : posts;
-      summary.textContent = query ? matches.length + "件の記事が見つかりました。" : "全" + posts.length + "件の記事を表示しています。";
+      const matches = posts.filter((post) => {
+        const matchesCategory = !selectedCategory || post.category.label === selectedCategory;
+        const matchesQuery = !query || [post.title, post.excerpt, post.category.label, post.date].join(" ").toLocaleLowerCase("ja-JP").includes(query);
+        return matchesCategory && matchesQuery;
+      });
+      const scope = selectedCategory ? "「" + selectedCategory + "」の" : "";
+      summary.textContent = query || selectedCategory ? scope + matches.length + "件の記事が見つかりました。" : "全" + posts.length + "件の記事を表示しています。";
+      for (const button of filterButtons) button.classList.toggle("active", button.dataset.categoryFilter === selectedCategory);
       results.replaceChildren();
       if (matches.length === 0) {
         const empty = document.createElement("p");
@@ -516,6 +535,13 @@ ${newsletterBox}`;
       syncUrl();
       render();
     });
+    for (const button of filterButtons) {
+      button.addEventListener("click", () => {
+        selectedCategory = button.dataset.categoryFilter;
+        syncUrl();
+        render();
+      });
+    }
     render();
   })();
 </script>

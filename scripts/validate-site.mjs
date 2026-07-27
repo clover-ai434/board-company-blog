@@ -79,7 +79,7 @@ if (errors.length === 0) {
     errors.push("robots.txt: sitemap.xmlの宣言がありません");
   }
   const search = read("search.html");
-  if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"')) {
+  if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"') || !search.includes('data-category-filter')) {
     errors.push("search.html: 検索フォームまたは検索結果領域がありません");
   }
   const index = read("index.html");
