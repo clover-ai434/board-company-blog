@@ -40,6 +40,7 @@ for (const path of [
   "about.html",
   "boundary-check.html",
   "quiz.html",
+  "search.html",
   "robots.txt",
   "sitemap.xml",
 ]) {
@@ -59,6 +60,10 @@ if (errors.length === 0) {
   }
   if (!robots.includes(`${SITE_URL}sitemap.xml`)) {
     errors.push("robots.txt: sitemap.xmlの宣言がありません");
+  }
+  const search = read("search.html");
+  if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"')) {
+    errors.push("search.html: 検索フォームまたは検索結果領域がありません");
   }
 
   const sitePath = new URL(SITE_URL).pathname;

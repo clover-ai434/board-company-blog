@@ -92,6 +92,20 @@ const STYLE = `
   .membership-box p { margin: 0 0 12px; font-size: 0.9rem; color: #dce7ff; line-height: 1.8; }
   .membership-box .cta { background: #5ad1ff; color: #06214f !important; }
 
+  .search-page { margin-top: 8px; }
+  .search-form { display: flex; gap: 10px; align-items: end; margin: 20px 0 12px; }
+  .search-form label { display: block; flex: 1; font-size: 0.85rem; font-weight: 700; color: #555; }
+  .search-form input { display: block; width: 100%; margin-top: 6px; padding: 11px 13px; border: 1px solid #cfcfc9; border-radius: 7px; background: #fff; color: #1f2328; font: inherit; }
+  .search-form input:focus { outline: 3px solid rgba(29, 78, 216, 0.18); border-color: #1d4ed8; }
+  .search-form button { border: 0; cursor: pointer; }
+  .search-summary { min-height: 1.8em; color: #666; font-size: 0.88rem; }
+  .search-results { margin-top: 10px; }
+  .search-result { display: block; padding: 16px 18px; margin-bottom: 12px; border: 1px solid #e8e6e1; border-radius: 10px; background: #fff; color: inherit; text-decoration: none; }
+  .search-result:hover { border-color: #1d4ed8; box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+  .search-result-title { display: block; margin: 6px 0; color: #1a1a1a; font-weight: 700; }
+  .search-result-excerpt { margin: 0; color: #555; font-size: 0.9rem; line-height: 1.7; }
+  .search-empty { padding: 20px; border: 1px dashed #d8d4cb; border-radius: 10px; color: #666; }
+
   table { border-collapse: collapse; width: 100%; margin: 16px 0; }
   th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; font-size: 0.95rem; }
   th { background: #f5f5f3; }
@@ -153,6 +167,7 @@ ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag
     <a href="${root}about.html">このブログについて</a>
     <a href="${root}boundary-check.html">権限境界チェック</a>
     <a href="${root}quiz.html">AI活用度診断</a>
+    <a href="${root}search.html">記事検索</a>
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
 </header>
@@ -377,10 +392,96 @@ ${newsletterBox}`;
   });
   writeFileSync(join(DOCS_DIR, "index.html"), indexHtml, "utf8");
 
+  const searchData = posts.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    date: p.date,
+    excerpt: p.excerpt,
+    minutes: p.minutes,
+    category: p.category,
+  }));
+  const searchDataScript = JSON.stringify(searchData).replace(/</g, "\\u003c");
+  const searchContent = `<section class="search-page">
+  <h2>記事検索</h2>
+  <p>タイトル・概要・カテゴリから、過去の記事をキーワードで探せます。</p>
+  <form class="search-form" id="searchForm" role="search">
+    <label for="searchInput">キーワード
+      <input id="searchInput" type="search" name="q" placeholder="例：AIエージェント、業務効率化" autocomplete="off">
+    </label>
+    <button class="cta" type="submit">検索</button>
+  </form>
+  <p class="search-summary" id="searchSummary" aria-live="polite"></p>
+  <div class="search-results" id="searchResults"></div>
+</section>
+<script>
+  (() => {
+    const posts = ${searchDataScript};
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const summary = document.getElementById("searchSummary");
+    const results = document.getElementById("searchResults");
+
+    function render() {
+      const query = input.value.trim().toLocaleLowerCase("ja-JP");
+      const matches = query
+        ? posts.filter((post) => [post.title, post.excerpt, post.category.label, post.date].join(" ").toLocaleLowerCase("ja-JP").includes(query))
+        : posts;
+      summary.textContent = query ? matches.length + "件の記事が見つかりました。" : "全" + posts.length + "件の記事を表示しています。";
+      results.replaceChildren();
+      if (matches.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "search-empty";
+        empty.textContent = "一致する記事がありません。別のキーワードを試してください。";
+        results.append(empty);
+        return;
+      }
+      for (const post of matches) {
+        const link = document.createElement("a");
+        link.className = "search-result";
+        link.href = "posts/" + post.slug + ".html";
+        const meta = document.createElement("span");
+        meta.className = "badge " + post.category.cls;
+        meta.textContent = post.category.label + " / " + post.date + " / 読了" + post.minutes + "分";
+        const title = document.createElement("span");
+        title.className = "search-result-title";
+        title.textContent = post.title;
+        const excerpt = document.createElement("p");
+        excerpt.className = "search-result-excerpt";
+        excerpt.textContent = post.excerpt;
+        link.append(meta, title, excerpt);
+        results.append(link);
+      }
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      render();
+    });
+    input.addEventListener("input", render);
+    render();
+  })();
+</script>`;
+  const searchHtml = layout({
+    title: `記事検索 | ${SITE_TITLE}`,
+    description: "ソラのAI活用・業務効率化ブログの記事をキーワードで検索できます。",
+    isIndex: true,
+    url: `${SITE_URL}search.html`,
+    contentHtml: searchContent,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "SearchResultsPage",
+      name: "記事検索",
+      description: "ソラのAI活用・業務効率化ブログの記事検索ページです。",
+      url: `${SITE_URL}search.html`,
+      inLanguage: "ja",
+    },
+  });
+  writeFileSync(join(DOCS_DIR, "search.html"), searchHtml, "utf8");
+
   // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
   // consulting.html は終了済みサービスの案内を残した互換ページ。
   // 新規流入は無料診断・テンプレートへ集約し、検索結果には出さない。
-  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html"];
+  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "search.html"];
   const urlEntries = [
     ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
     ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),
