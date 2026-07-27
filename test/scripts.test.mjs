@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { parseFrontmatter } from "../scripts/frontmatter.mjs";
 import { markdownToHtml } from "../scripts/markdown.mjs";
-import { todayIso } from "../scripts/new-post.mjs";
+import { findExistingTitle, todayIso } from "../scripts/new-post.mjs";
 
 test("parseFrontmatter accepts CRLF and a UTF-8 BOM", () => {
   const raw = "\uFEFF---\r\ntitle: テスト記事\r\ndate: 2026-07-27\r\n---\r\n本文です。";
@@ -30,4 +30,12 @@ test("markdown escapes HTML and blocks unsafe link protocols", () => {
 
 test("todayIso uses Japan time after UTC day rollover", () => {
   assert.equal(todayIso(new Date("2026-07-27T15:30:00Z")), "2026-07-28");
+});
+
+test("findExistingTitle detects an already published title", () => {
+  assert.equal(
+    findExistingTitle("会社名をGoogle検索だけで決めたら、1週間で4回改名する羽目になった"),
+    "2026-07-27-1.md"
+  );
+  assert.equal(findExistingTitle("存在しないテスト記事"), null);
 });

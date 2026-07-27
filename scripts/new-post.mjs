@@ -1,7 +1,8 @@
-import { writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { writeFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 import { buildFrontmatter } from "./frontmatter.mjs";
+import { parseFrontmatter } from "./frontmatter.mjs";
 import { checkPost } from "./guardrails.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -37,6 +38,16 @@ export function nextSlug(date) {
   return `${date}-${n}`;
 }
 
+export function findExistingTitle(title) {
+  const normalizedTitle = title.trim();
+  for (const filename of readdirSync(POSTS_DIR).filter((name) => name.endsWith(".md"))) {
+    const raw = readFileSync(join(POSTS_DIR, filename), "utf8");
+    const { meta } = parseFrontmatter(raw);
+    if (meta.title?.trim() === normalizedTitle) return filename;
+  }
+  return null;
+}
+
 async function main() {
   const title = process.argv[2];
 
@@ -47,6 +58,10 @@ async function main() {
 
   const body = (await readStdin()).trim();
   const problems = checkPost(title, body);
+  const existingTitleFile = findExistingTitle(title);
+  if (existingTitleFile) {
+    problems.push(`同じタイトルの記事が既にあります: posts/${existingTitleFile}`);
+  }
 
   if (problems.length > 0) {
     console.error("投稿をブロックしました:");
