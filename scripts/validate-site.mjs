@@ -139,7 +139,12 @@ if (errors.length === 0) {
   for (const { file, html } of staticHtmlFiles) {
     checkLiteralLocalLinks(file, html);
     const excludedStaticPage = file === "404.html" || file === "consulting.html" || file.startsWith("google");
-    if (!excludedStaticPage) checkShareMetadata(file, html);
+    if (!excludedStaticPage) {
+      checkShareMetadata(file, html);
+      if (!html.includes('href="search.html"')) {
+        errors.push(`${file}: 記事検索へのナビゲーションがありません`);
+      }
+    }
   }
   for (const name of postFiles) {
     const html = read(`posts/${name}`);
