@@ -35,6 +35,7 @@ function checkLiteralLocalLinks(file, html) {
 
 for (const path of [
   "index.html",
+  "404.html",
   "oversight-kit.html",
   "about.html",
   "boundary-check.html",
