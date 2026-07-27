@@ -1,5 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { parseFrontmatter } from "../scripts/frontmatter.mjs";
 import { markdownToHtml } from "../scripts/markdown.mjs";
 import { findExistingTitle, todayIso } from "../scripts/new-post.mjs";
@@ -33,9 +36,16 @@ test("todayIso uses Japan time after UTC day rollover", () => {
 });
 
 test("findExistingTitle detects an already published title", () => {
-  assert.equal(
-    findExistingTitle("会社名をGoogle検索だけで決めたら、1週間で4回改名する羽目になった"),
-    "2026-07-27-1.md"
-  );
-  assert.equal(findExistingTitle("存在しないテスト記事"), null);
+  const fixtureDir = mkdtempSync(join(tmpdir(), "board-company-blog-test-"));
+  try {
+    writeFileSync(
+      join(fixtureDir, "existing.md"),
+      "---\ntitle: 既存記事\ndate: 2026-07-27\n---\n本文です。\n",
+      "utf8"
+    );
+    assert.equal(findExistingTitle("既存記事", fixtureDir), "existing.md");
+    assert.equal(findExistingTitle("存在しないテスト記事", fixtureDir), null);
+  } finally {
+    rmSync(fixtureDir, { recursive: true, force: true });
+  }
 });

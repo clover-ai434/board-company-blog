@@ -1,8 +1,7 @@
 import { writeFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
-import { buildFrontmatter } from "./frontmatter.mjs";
-import { parseFrontmatter } from "./frontmatter.mjs";
+import { buildFrontmatter, parseFrontmatter } from "./frontmatter.mjs";
 import { checkPost } from "./guardrails.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -38,10 +37,10 @@ export function nextSlug(date) {
   return `${date}-${n}`;
 }
 
-export function findExistingTitle(title) {
+export function findExistingTitle(title, postsDir = POSTS_DIR) {
   const normalizedTitle = title.trim();
-  for (const filename of readdirSync(POSTS_DIR).filter((name) => name.endsWith(".md"))) {
-    const raw = readFileSync(join(POSTS_DIR, filename), "utf8");
+  for (const filename of readdirSync(postsDir).filter((name) => name.endsWith(".md"))) {
+    const raw = readFileSync(join(postsDir, filename), "utf8");
     const { meta } = parseFrontmatter(raw);
     if (meta.title?.trim() === normalizedTitle) return filename;
   }
