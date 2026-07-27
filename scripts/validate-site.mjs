@@ -144,12 +144,18 @@ if (errors.length === 0) {
       if (!html.includes('href="search.html"')) {
         errors.push(`${file}: 記事検索へのナビゲーションがありません`);
       }
+      if (!html.includes('href="feed.xml"')) {
+        errors.push(`${file}: RSSリンクがありません`);
+      }
     }
   }
   for (const name of postFiles) {
     const html = read(`posts/${name}`);
     checkLiteralLocalLinks(`posts/${name}`, html);
     checkShareMetadata(`posts/${name}`, html);
+    if (!html.includes('href="../feed.xml"')) {
+      errors.push(`posts/${name}: RSSリンクがありません`);
+    }
   }
 }
 
