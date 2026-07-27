@@ -108,23 +108,27 @@ const STYLE = `
 
 function layout({ title, description, contentHtml, isIndex, url, jsonLd }) {
   const root = isIndex ? "" : "../";
+  const safeTitle = escapeHtml(title);
+  const safeDescription = escapeHtml(description);
+  const safeUrl = escapeHtml(url);
+  const jsonLdScript = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title}</title>
-<meta name="description" content="${description}">
-${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}">\n` : ""}<link rel="canonical" href="${url}">
+<title>${safeTitle}</title>
+<meta name="description" content="${safeDescription}">
+${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${GOOGLE_SITE_VERIFICATION}">\n` : ""}<link rel="canonical" href="${safeUrl}">
 <link rel="icon" href="${root}icon.png">
 <meta property="og:site_name" content="${SITE_TITLE}">
-<meta property="og:title" content="${title}">
-<meta property="og:description" content="${description}">
+<meta property="og:title" content="${safeTitle}">
+<meta property="og:description" content="${safeDescription}">
 <meta property="og:type" content="${isIndex ? "website" : "article"}">
-<meta property="og:url" content="${url}">
+<meta property="og:url" content="${safeUrl}">
 <meta property="og:image" content="${SITE_URL}icon.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+<script type="application/ld+json">${jsonLdScript}</script>
 ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -237,14 +241,14 @@ function build() {
     const relatedHtml =
       newer || older
         ? `<nav class="post-nav">
-${older ? `      <a class="post-nav-item" href="${older.slug}.html"><span class="post-nav-label">前の記事</span>${older.title}</a>` : ""}
-${newer ? `      <a class="post-nav-item" href="${newer.slug}.html"><span class="post-nav-label">次の記事</span>${newer.title}</a>` : ""}
+${older ? `      <a class="post-nav-item" href="${older.slug}.html"><span class="post-nav-label">前の記事</span>${escapeHtml(older.title)}</a>` : ""}
+${newer ? `      <a class="post-nav-item" href="${newer.slug}.html"><span class="post-nav-label">次の記事</span>${escapeHtml(newer.title)}</a>` : ""}
     </nav>`
         : "";
     const contentHtml = `<article>
   <span class="badge ${post.category.cls}">${post.category.label}</span>
-  <h2 class="article-title">${post.title}</h2>
-  <div class="post-meta"><time>${post.date}</time><span class="dot">・</span><span>読了目安 ${post.minutes}分</span></div>
+  <h2 class="article-title">${escapeHtml(post.title)}</h2>
+  <div class="post-meta"><time>${escapeHtml(post.date)}</time><span class="dot">・</span><span>読了目安 ${post.minutes}分</span></div>
   <div class="article-body">
 ${post.bodyHtml}
   </div>
@@ -252,14 +256,14 @@ ${post.bodyHtml}
     <div class="cta-box">
       <p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。メンバーシップでは、無料記事には書かない実際の数字や判断の過程と、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」をお届けしています。</p>
       <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
-      <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>から読むのもおすすめです。</p>
+      <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="../quiz.html">30秒のAI活用度診断</a>で自社の境界線を確認してから、<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>を読むのもおすすめです。</p>
     </div>
     ${relatedHtml}
   </div>
 </article>`;
     const html = layout({
       title: `${post.title} | ${SITE_TITLE}`,
-      description: escapeHtml(post.excerpt),
+      description: post.excerpt,
       isIndex: false,
       url,
       contentHtml,
@@ -316,8 +320,8 @@ ${posts
     (p) => `  <li>
     <a class="post-card" href="posts/${p.slug}.html">
       <span class="badge ${p.category.cls}">${p.category.label}</span>
-      <div class="post-meta"><time>${p.date}</time><span class="dot">・</span><span>読了目安 ${p.minutes}分</span></div>
-      <span class="post-title">${p.title}</span>
+      <div class="post-meta"><time>${escapeHtml(p.date)}</time><span class="dot">・</span><span>読了目安 ${p.minutes}分</span></div>
+      <span class="post-title">${escapeHtml(p.title)}</span>
       <p class="post-excerpt">${escapeHtml(p.excerpt)}</p>
       <span class="post-more">続きを読む →</span>
     </a>
@@ -353,7 +357,9 @@ ${newsletterBox}`;
   writeFileSync(join(DOCS_DIR, "index.html"), indexHtml, "utf8");
 
   // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
-  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "consulting.html"];
+  // consulting.html は終了済みサービスの案内を残した互換ページ。
+  // 新規流入は無料診断・テンプレートへ集約し、検索結果には出さない。
+  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html"];
   const urlEntries = [
     ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
     ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),

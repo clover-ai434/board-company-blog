@@ -6,9 +6,22 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function safeHref(value) {
+  // `value` is captured after the complete text has been HTML-escaped.
+  // Decode only the entity we need to preserve query-string separators, then
+  // escape the final attribute value exactly once.
+  const href = value.trim().replace(/&amp;/g, "&");
+  if (/^(?:https?:|mailto:|tel:|\/|#|\.?\.?(?:\/|$))/i.test(href)) {
+    return href;
+  }
+  return "#";
+}
+
 function inline(text) {
   let out = escapeHtml(text);
-  out = out.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  out = out.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, href) =>
+    `<a href="${escapeHtml(safeHref(href))}">${label}</a>`
+  );
   out = out.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   out = out.replace(/\*([^*]+)\*/g, "<em>$1</em>");
   return out;

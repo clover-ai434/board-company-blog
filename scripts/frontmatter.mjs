@@ -1,7 +1,10 @@
 export function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  // Git may check out Markdown files with CRLF on Windows. Normalize line
+  // endings (and a possible UTF-8 BOM) before parsing so builds are portable.
+  const normalized = raw.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
+  const match = normalized.match(/^---\n([\s\S]*?)\n---(?:\n|$)([\s\S]*)$/);
   if (!match) {
-    return { meta: {}, body: raw };
+    return { meta: {}, body: normalized };
   }
   const meta = {};
   for (const line of match[1].split("\n")) {
