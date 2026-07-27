@@ -22,6 +22,13 @@ const MEMBERSHIP_URL = "https://note.com/genial_clover242/membership";
 // 空文字のあいだは何も出力しない(安全)。
 const GOOGLE_SITE_VERIFICATION = "";
 
+// Google Analytics 4の測定ID。
+// 取締役会がGoogleアカウントでGA4プロパティを作成すると「G-XXXXXXXXXX」という
+// 測定IDが発行されるので、その文字列だけをここに貼れば全ページに計測タグが入る。
+// 空文字のあいだは何も出力しない(安全)。プロパティ作成自体はログインが必要なため
+// CEOは代行できないが、測定IDさえもらえればこちらで即座に埋め込む。
+const GA4_MEASUREMENT_ID = "";
+
 // favicon/アイコン: docs/icon.png(2026-07-26、ダックスのマスコットに変更、note・Xと統一)
 
 const STYLE = `
@@ -118,7 +125,14 @@ ${GOOGLE_SITE_VERIFICATION ? `<meta name="google-site-verification" content="${G
 <meta property="og:image" content="${SITE_URL}icon.png">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-<style>${STYLE}</style>
+${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${GA4_MEASUREMENT_ID}');
+</script>
+` : ""}<style>${STYLE}</style>
 </head>
 <body>
 <header>
