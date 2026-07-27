@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "new-post": "node scripts/new-post.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "validate:site": "node scripts/validate-site.mjs"
   }
 }
