@@ -117,6 +117,17 @@ const STYLE = `
   .search-result-excerpt { margin: 0; color: #555; font-size: 0.9rem; line-height: 1.7; }
   .search-empty { padding: 20px; border: 1px dashed #d8d4cb; border-radius: 10px; color: #666; }
 
+  .archive-page { margin-top: 8px; }
+  .archive-summary { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 28px; }
+  .archive-summary-item { padding: 8px 12px; border-radius: 8px; background: #f5f7ff; color: #1d4ed8; font-size: 0.82rem; font-weight: 700; }
+  .archive-month { margin: 0 0 30px; }
+  .archive-month h3 { margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e8e6e1; font-size: 1.12rem; }
+  .archive-list { list-style: none; padding: 0; margin: 0; }
+  .archive-item { display: block; padding: 12px 14px; border-bottom: 1px solid #eee; text-decoration: none; color: inherit; }
+  .archive-item:hover { background: #f8f9ff; }
+  .archive-item-title { display: block; margin: 4px 0; color: #1a1a1a; font-weight: 700; }
+  .archive-item-excerpt { display: block; color: #666; font-size: 0.86rem; line-height: 1.65; }
+
   table { border-collapse: collapse; width: 100%; margin: 16px 0; }
   th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; font-size: 0.95rem; }
   th { background: #f5f5f3; }
@@ -187,6 +198,7 @@ ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag
     <a href="${root}boundary-check.html">権限境界チェック</a>
     <a href="${root}quiz.html">AI活用度診断</a>
     <a href="${root}search.html">記事検索</a>
+    <a href="${root}archive.html">記事アーカイブ</a>
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
 </header>
@@ -565,10 +577,54 @@ ${newsletterBox}`;
   });
   writeFileSync(join(DOCS_DIR, "search.html"), searchHtml, "utf8");
 
+  const categorySummary = [...new Map(posts.map((p) => [p.category.label, p])).keys()]
+    .map((label) => ({ label, count: posts.filter((p) => p.category.label === label).length }));
+  const archiveGroups = [...new Set(posts.map((p) => p.date.slice(0, 7)))].map((month) => ({
+    month,
+    posts: posts.filter((p) => p.date.startsWith(month)),
+  }));
+  const archiveContent = `<section class="archive-page">
+  <h2>記事アーカイブ</h2>
+  <p>ソラのAI活用・業務効率化の記事を、カテゴリと月別に一覧できます。</p>
+  <div class="archive-summary" aria-label="カテゴリ別記事数">
+${categorySummary.map((item) => `    <span class="archive-summary-item">${escapeHtml(item.label)} ${item.count}件</span>`).join("\n")}
+  </div>
+  <div id="archiveContent">
+${archiveGroups.map((group) => `    <section class="archive-month">
+      <h3>${escapeHtml(group.month.replace("-", "年"))}月</h3>
+      <ul class="archive-list">
+${group.posts.map((p) => `        <li><a class="archive-item" href="posts/${p.slug}.html">
+          <span class="post-meta"><span class="badge ${p.category.cls}">${escapeHtml(p.category.label)}</span><time datetime="${escapeHtml(p.date)}">${escapeHtml(p.date)}</time></span>
+          <span class="archive-item-title">${escapeHtml(p.title)}</span>
+          <span class="archive-item-excerpt">${escapeHtml(p.excerpt)}</span>
+        </a></li>`).join("\n")}
+      </ul>
+    </section>`).join("\n")}
+  </div>
+</section>
+${freeKitBox}
+${newsletterBox}`;
+  const archiveHtml = layout({
+    title: `記事アーカイブ | ${SITE_TITLE}`,
+    description: "ソラのAI活用・業務効率化ブログの記事を月別・カテゴリ別に一覧できます。",
+    isIndex: true,
+    url: `${SITE_URL}archive.html`,
+    contentHtml: archiveContent,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "記事アーカイブ",
+      description: "ソラのAI活用・業務効率化ブログの記事アーカイブです。",
+      url: `${SITE_URL}archive.html`,
+      inLanguage: "ja",
+    },
+  });
+  writeFileSync(join(DOCS_DIR, "archive.html"), archiveHtml, "utf8");
+
   // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
   // consulting.html は終了済みサービスの案内を残した互換ページ。
   // 新規流入は無料診断・テンプレートへ集約し、検索結果には出さない。
-  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "search.html"];
+  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "search.html", "archive.html"];
   const urlEntries = [
     ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
     ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),

@@ -58,6 +58,7 @@ for (const path of [
   "boundary-check.html",
   "quiz.html",
   "search.html",
+  "archive.html",
   "robots.txt",
   "sitemap.xml",
   "feed.xml",
@@ -82,6 +83,10 @@ if (errors.length === 0) {
   const search = read("search.html");
   if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"') || !search.includes('data-category-filter')) {
     errors.push("search.html: 検索フォームまたは検索結果領域がありません");
+  }
+  const archive = read("archive.html");
+  if (!archive.includes('class="archive-page"') || !archive.includes('id="archiveContent"')) {
+    errors.push("archive.html: アーカイブ領域がありません");
   }
   const index = read("index.html");
   if (!index.includes('"@type":"SearchAction"') || !index.includes("search.html?q={search_term_string}")) {
@@ -158,6 +163,9 @@ if (errors.length === 0) {
       checkShareMetadata(file, html);
       if (!html.includes('href="search.html"')) {
         errors.push(`${file}: 記事検索へのナビゲーションがありません`);
+      }
+      if (!html.includes('href="archive.html"')) {
+        errors.push(`${file}: 記事アーカイブへのナビゲーションがありません`);
       }
       if (!html.includes('href="feed.xml"')) {
         errors.push(`${file}: RSSリンクがありません`);
