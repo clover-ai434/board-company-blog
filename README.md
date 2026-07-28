@@ -31,11 +31,14 @@ git push
 
 ```bash
 npm test
+npm run validate:drafts
 npm run validate:content
 npm run build
 npm run validate:site
 ```
 
 - `validate:content`: frontmatter、本文のガードレール、日付、タイトル重複を検査する。
+- `validate:drafts`: 公開前の `drafts/` にある記事のfrontmatterと本文を検査する。
 - `validate:site`: sitemap、robots.txt、生成ページ、記事内リンクを検査する。
+- `validate:all`: 上記の検査とビルドを一括実行する。
 - `new-post` の日付は日本時間(Asia/Tokyo)で決まる。

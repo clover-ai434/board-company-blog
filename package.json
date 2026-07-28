@@ -7,7 +7,9 @@
     "build": "node scripts/build.mjs",
     "new-post": "node scripts/new-post.mjs",
     "test": "node --test",
+    "validate:drafts": "node scripts/validate-drafts.mjs",
     "validate:content": "node scripts/validate-content.mjs",
-    "validate:site": "node scripts/validate-site.mjs"
+    "validate:site": "node scripts/validate-site.mjs",
+    "validate:all": "npm test && npm run validate:drafts && npm run validate:content && npm run build && npm run validate:site"
   }
 }
