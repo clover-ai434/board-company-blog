@@ -50,6 +50,10 @@
   #result p { margin: 0 0 12px; }
   #result .cta { background: #5ad1ff; color: #06214f !important; }
   #result.risk-low .cta { background: #1a1a1a; color: #fff !important; }
+  .share-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .share-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; background: rgba(0,0,0,0.08); color: inherit !important; text-decoration: none; font-size: 0.88rem; font-weight: 600; border: 1px solid rgba(0,0,0,0.15); cursor: pointer; }
+  #result.risk-high .share-btn { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); color: #fff !important; }
+  .share-btn:hover { opacity: 0.85; }
   #submitBtn { display: inline-block; margin-top: 8px; padding: 12px 28px; background: #1d4ed8; color: #fff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 700; cursor: pointer; }
   #submitBtn:disabled { background: #ccc; cursor: not-allowed; }
   footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid #eee; color: #999; font-size: 0.8rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -120,6 +124,70 @@
   <span><a href="mailto:cairenliyong@gmail.com">お問い合わせ</a> / <a href="feed.xml">RSS</a></span>
 </footer>
 <script>
+  var TIERS = {
+    high: {
+      className: 'risk-high',
+      title: '診断結果:境界線に抜けがあります',
+      body: 'お金・対外送信・認証情報のうち、いずれかをAIに渡したままになっている可能性があります。無料公開しているテンプレートで、そのままコピーして直せます。',
+      ctaHref: 'oversight-kit.html',
+      ctaLabel: '無料テンプレートを見る →',
+      shareText: 'AIにどこまで任せていいかチェックしたら「境界線に抜けあり」でした。'
+    },
+    mid: {
+      className: 'risk-low',
+      title: '診断結果:惜しいところまで来ています',
+      body: '基本的な線引きはできていますが、1点だけ抜けがありました。放置すると事故の芽になるので、無料テンプレートで見直しておくのがおすすめです。',
+      ctaHref: 'oversight-kit.html',
+      ctaLabel: '無料テンプレートを見る →',
+      shareText: 'AIにどこまで任せていいかチェックしたら「惜しいところまで来ています」でした。'
+    },
+    safe: {
+      className: 'risk-low',
+      title: '診断結果:基本的な境界線は守られています',
+      body: 'お金・対外送信・認証情報のいずれもAIに渡していないようです。この状態を「毎回意識する」から「仕組みとして固定化する」段階に進めると、運用がさらに楽になります。テンプレート化のやり方と、その先の実践ログはこちらでどうぞ。',
+      ctaHref: 'https://note.com/genial_clover242/membership',
+      ctaLabel: 'メンバーシップを見る →',
+      shareText: 'AIにどこまで任せていいかチェックしたら「基本的な境界線は守られている」でした。'
+    }
+  };
+
+  function tierFromScore(total) {
+    if (total >= 2) return 'high';
+    if (total >= 1) return 'mid';
+    return 'safe';
+  }
+
+  function renderResult(tierKey, total) {
+    var tier = TIERS[tierKey];
+    if (!tier) return;
+    var shareUrl = location.origin + location.pathname + '?r=' + tierKey;
+    var resultEl = document.getElementById('result');
+    var body = tier.body;
+    if (tierKey === 'high' && typeof total === 'number') {
+      body = '「はい」が' + total + '個ありました。' + body;
+    }
+    resultEl.className = tier.className;
+    resultEl.innerHTML = '<p><strong>' + tier.title + '</strong></p><p>' + body + '</p>' +
+      '<a class="cta" href="' + tier.ctaHref + '"' + (tier.ctaHref.indexOf('http') === 0 && tier.ctaHref.indexOf('board-company-blog') < 0 ? ' target="_blank" rel="noopener"' : '') + '>' + tier.ctaLabel + '</a>' +
+      '<div class="share-row">' +
+        '<a class="share-btn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tier.shareText) + '&url=' + encodeURIComponent(shareUrl) + '">Xでシェア</a>' +
+        '<a class="share-btn" target="_blank" rel="noopener" href="https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(shareUrl) + '">LINEでシェア</a>' +
+        '<button type="button" class="share-btn" id="copyLinkBtn">リンクをコピー</button>' +
+      '</div>';
+    resultEl.style.display = 'block';
+
+    var copyBtn = document.getElementById('copyLinkBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(shareUrl).then(function () {
+          copyBtn.textContent = 'コピーしました';
+          setTimeout(function () { copyBtn.textContent = 'リンクをコピー'; }, 2000);
+        });
+      });
+    }
+    return resultEl;
+  }
+
   document.getElementById('quizForm').addEventListener('submit', function (e) {
     e.preventDefault();
     var total = 0;
@@ -135,35 +203,18 @@
       alert('すべての質問にお答えください。');
       return;
     }
-
-    var resultEl = document.getElementById('result');
-    var title, body, ctaHref, ctaLabel;
-
-    if (total >= 2) {
-      resultEl.className = 'risk-high';
-      title = '診断結果:境界線に抜けがあります';
-      body = '「はい」が' + total + '個ありました。お金・対外送信・認証情報のうち、いずれかをAIに渡したままになっている可能性があります。無料公開しているテンプレートで、そのままコピーして直せます。';
-      ctaHref = 'oversight-kit.html';
-      ctaLabel = '無料テンプレートを見る →';
-    } else if (total >= 1) {
-      resultEl.className = 'risk-low';
-      title = '診断結果:惜しいところまで来ています';
-      body = '基本的な線引きはできていますが、1点だけ抜けがありました。放置すると事故の芽になるので、無料テンプレートで見直しておくのがおすすめです。';
-      ctaHref = 'oversight-kit.html';
-      ctaLabel = '無料テンプレートを見る →';
-    } else {
-      resultEl.className = 'risk-low';
-      title = '診断結果:基本的な境界線は守られています';
-      body = 'お金・対外送信・認証情報のいずれもAIに渡していないようです。この状態を「毎回意識する」から「仕組みとして固定化する」段階に進めると、運用がさらに楽になります。テンプレート化のやり方と、その先の実践ログはこちらでどうぞ。';
-      ctaHref = 'https://note.com/genial_clover242/membership';
-      ctaLabel = 'メンバーシップを見る →';
-    }
-
-    resultEl.innerHTML = '<p><strong>' + title + '</strong></p><p>' + body + '</p>' +
-      '<a class="cta" href="' + ctaHref + '"' + (ctaHref.indexOf('http') === 0 && ctaHref.indexOf('board-company-blog') < 0 ? ' target="_blank" rel="noopener"' : '') + '>' + ctaLabel + '</a>';
-    resultEl.style.display = 'block';
-    resultEl.scrollIntoView({ behavior: 'smooth' });
+    var resultEl = renderResult(tierFromScore(total), total);
+    if (resultEl) resultEl.scrollIntoView({ behavior: 'smooth' });
   });
+
+  // 結果別固有URL(?r=high|mid|safe)からアクセスした場合、診断フォームより先に結果を直接表示する
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var sharedTier = params.get('r');
+    if (sharedTier && TIERS[sharedTier]) {
+      renderResult(sharedTier);
+    }
+  })();
 </script>
 </body>
 </html>
