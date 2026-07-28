@@ -85,7 +85,7 @@ if (errors.length === 0) {
     errors.push("search.html: 検索フォームまたは検索結果領域がありません");
   }
   const archive = read("archive.html");
-  if (!archive.includes('class="archive-page"') || !archive.includes('id="archiveContent"')) {
+  if (!archive.includes('class="archive-page"') || !archive.includes('id="archiveContent"') || !archive.includes("search.html?category=")) {
     errors.push("archive.html: アーカイブ領域がありません");
   }
   const index = read("index.html");

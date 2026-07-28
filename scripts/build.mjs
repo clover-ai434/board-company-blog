@@ -119,7 +119,8 @@ const STYLE = `
 
   .archive-page { margin-top: 8px; }
   .archive-summary { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 28px; }
-  .archive-summary-item { padding: 8px 12px; border-radius: 8px; background: #f5f7ff; color: #1d4ed8; font-size: 0.82rem; font-weight: 700; }
+  .archive-summary-item { display: inline-block; padding: 8px 12px; border-radius: 8px; background: #f5f7ff; color: #1d4ed8; font-size: 0.82rem; font-weight: 700; text-decoration: none; }
+  .archive-summary-item:hover { background: #e3eaff; }
   .archive-month { margin: 0 0 30px; }
   .archive-month h3 { margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e8e6e1; font-size: 1.12rem; }
   .archive-list { list-style: none; padding: 0; margin: 0; }
@@ -587,7 +588,7 @@ ${newsletterBox}`;
   <h2>記事アーカイブ</h2>
   <p>ソラのAI活用・業務効率化の記事を、カテゴリと月別に一覧できます。</p>
   <div class="archive-summary" aria-label="カテゴリ別記事数">
-${categorySummary.map((item) => `    <span class="archive-summary-item">${escapeHtml(item.label)} ${item.count}件</span>`).join("\n")}
+${categorySummary.map((item) => `    <a class="archive-summary-item" href="search.html?category=${encodeURIComponent(item.label)}">${escapeHtml(item.label)} ${item.count}件</a>`).join("\n")}
   </div>
   <div id="archiveContent">
 ${archiveGroups.map((group) => `    <section class="archive-month">
