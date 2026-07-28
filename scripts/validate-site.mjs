@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+const POSTS_DIR = join(ROOT, "posts");
 const DOCS_DIR = join(ROOT, "docs");
 const SITE_URL = "https://clover-ai434.github.io/board-company-blog/";
 const errors = [];
@@ -111,8 +112,18 @@ if (errors.length === 0) {
   }
 
   const postFiles = readdirSync(join(DOCS_DIR, "posts")).filter((name) => name.endsWith(".html"));
+  const sourcePostFiles = readdirSync(POSTS_DIR).filter((name) => name.endsWith(".md"));
   if (postFiles.length === 0) {
     errors.push("docs/posts: 生成された記事がありません");
+  }
+  if (sourcePostFiles.length !== postFiles.length) {
+    errors.push(`postsとdocs/postsの件数が一致しません (${sourcePostFiles.length}件 / ${postFiles.length}件)`);
+  }
+  for (const sourceName of sourcePostFiles) {
+    const generatedName = sourceName.replace(/\.md$/, ".html");
+    if (!postFiles.includes(generatedName)) {
+      errors.push(`docs/posts/${generatedName}: posts/${sourceName}の生成物がありません`);
+    }
   }
   for (const name of postFiles) {
     if (!sitemapPages.has(`posts/${name}`)) {
