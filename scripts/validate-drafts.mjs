@@ -6,7 +6,16 @@ import { parseFrontmatter } from "./frontmatter.mjs";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const DRAFTS_DIR = join(ROOT, "drafts");
+const POSTS_DIR = join(ROOT, "posts");
 const errors = [];
+const publishedTitles = new Set();
+
+if (existsSync(POSTS_DIR)) {
+  for (const filename of readdirSync(POSTS_DIR).filter((name) => name.endsWith(".md"))) {
+    const { meta } = parseFrontmatter(readFileSync(join(POSTS_DIR, filename), "utf8"));
+    if (meta.title?.trim()) publishedTitles.add(meta.title.trim());
+  }
+}
 
 const draftFiles = existsSync(DRAFTS_DIR)
   ? readdirSync(DRAFTS_DIR).filter((name) => name.endsWith(".md") && name !== "README.md")
@@ -18,6 +27,7 @@ if (existsSync(DRAFTS_DIR)) {
     const { meta, body } = parseFrontmatter(readFileSync(path, "utf8"));
     if (!meta.title?.trim()) errors.push(`${filename}: titleがありません`);
     if (meta.status !== "draft") errors.push(`${filename}: status: draftが必要です`);
+    if (meta.title?.trim() && publishedTitles.has(meta.title.trim())) errors.push(`${filename}: 公開済み記事とタイトルが重複しています`);
     if (meta.date && !/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) errors.push(`${filename}: dateがYYYY-MM-DDではありません`);
     if (body.trim().length < 30) errors.push(`${filename}: 本文が短すぎます`);
   }
