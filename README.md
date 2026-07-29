@@ -10,6 +10,7 @@ Board-Companyプロジェクト([`../Board-Company`](../Board-Company))のマイ
 - `npm run new-post -- "タイトル"` で新しい記事を作成する(本文は標準入力から渡す)。ガードレール(NGワード・最低文字数)チェックを通過したものだけ保存される。
 - `npm run build` で `posts/*.md` から `docs/` 配下に静的HTMLを生成する。GitHub PagesはこのリポジトリのSettings → Pages → Source を `main` ブランチの `/docs` フォルダに設定して公開する。
 - ビルド時に `docs/search.html` も生成され、記事のタイトル・概要・カテゴリをブラウザ内で検索できる。検索語は `?q=` としてURLに反映されるため、検索結果を共有・再訪できる。
+- `docs/search.html` はJavaScriptが無効な環境でも、生成された全記事一覧から読み進められるフォールバックを持つ。
 - ビルド時に `docs/archive.html` も生成され、記事を月別・カテゴリ別に一覧できる。
 - ビルド時に `docs/feed.xml` も生成され、RSSリーダーから新着記事を購読できる。
 
