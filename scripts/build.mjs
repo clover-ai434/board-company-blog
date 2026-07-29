@@ -119,6 +119,10 @@ const STYLE = `
   .search-result-title { display: block; margin: 6px 0; color: #1a1a1a; font-weight: 700; }
   .search-result-excerpt { margin: 0; color: #555; font-size: 0.9rem; line-height: 1.7; }
   .search-empty { padding: 20px; border: 1px dashed #d8d4cb; border-radius: 10px; color: #666; }
+  .search-fallback { margin: 20px 0 32px; padding: 18px 20px; border: 1px dashed #d8d4cb; border-radius: 10px; background: #fff; }
+  .search-fallback ul { margin: 12px 0 0; padding-left: 20px; }
+  .search-fallback li { margin: 7px 0; }
+  .search-fallback li span { color: #777; font-size: 0.82rem; }
 
   .archive-page { margin-top: 8px; }
   .archive-summary { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 28px; }
@@ -471,6 +475,14 @@ ${newsletterBox}`;
     <button class="filter-button active" type="button" data-category-filter="">すべて</button>
 ${searchCategories.map(([label]) => `    <button class="filter-button" type="button" data-category-filter="${escapeHtml(label)}">${escapeHtml(label)}</button>`).join("\n")}
   </div>`;
+  const searchFallback = `<noscript>
+  <div class="search-fallback">
+    <p><strong>JavaScriptが無効になっています。</strong>以下の記事一覧からお選びください。</p>
+    <ul>
+${posts.map((p) => `      <li><a href="posts/${p.slug}.html">${escapeHtml(p.title)}</a> <span>${escapeHtml(p.date)} / ${escapeHtml(p.category.label)}</span></li>`).join("\n")}
+    </ul>
+  </div>
+</noscript>`;
   const searchContent = `<section class="search-page">
   <h2>記事検索</h2>
   <p>タイトル・概要・カテゴリから、過去の記事をキーワードで探せます。</p>
@@ -484,6 +496,7 @@ ${searchCategories.map(([label]) => `    <button class="filter-button" type="but
   <p class="search-summary" id="searchSummary" aria-live="polite"></p>
   <div class="search-results" id="searchResults"></div>
 </section>
+${searchFallback}
 <script>
   (() => {
     const posts = ${searchDataScript};

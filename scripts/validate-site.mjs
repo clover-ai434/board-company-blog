@@ -86,7 +86,7 @@ if (errors.length === 0) {
     errors.push("robots.txt: sitemap.xmlの宣言がありません");
   }
   const search = read("search.html");
-  if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"') || !search.includes('data-category-filter')) {
+  if (!search.includes('id="searchInput"') || !search.includes('id="searchResults"') || !search.includes('data-category-filter') || !search.includes("<noscript>")) {
     errors.push("search.html: 検索フォームまたは検索結果領域がありません");
   }
   const archive = read("archive.html");
@@ -123,6 +123,11 @@ if (errors.length === 0) {
 
   const postFiles = readdirSync(join(DOCS_DIR, "posts")).filter((name) => name.endsWith(".html"));
   const sourcePostFiles = readdirSync(POSTS_DIR).filter((name) => name.endsWith(".md"));
+  const fallbackBlock = search.match(/<noscript>[\s\S]*?<\/noscript>/)?.[0] || "";
+  const fallbackPostLinks = [...fallbackBlock.matchAll(/href="posts\/[^\"]+\.html"/g)].length;
+  if (fallbackPostLinks !== sourcePostFiles.length) {
+    errors.push(`search.html: JavaScript無効時の記事一覧が不足しています (${fallbackPostLinks}件 / ${sourcePostFiles.length}件)`);
+  }
   if (postFiles.length === 0) {
     errors.push("docs/posts: 生成された記事がありません");
   }
