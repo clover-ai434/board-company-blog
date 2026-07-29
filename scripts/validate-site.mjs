@@ -50,6 +50,11 @@ function checkShareMetadata(file, html) {
   }
 }
 
+function checkAccessibilityBasics(file, html) {
+  if (!html.includes('class="skip-link"')) errors.push(`${file}: スキップリンクがありません`);
+  if (!html.includes('<main id="main-content">')) errors.push(`${file}: mainの識別子がありません`);
+}
+
 for (const path of [
   "index.html",
   "404.html",
@@ -161,6 +166,7 @@ if (errors.length === 0) {
     const excludedStaticPage = file === "404.html" || file === "consulting.html" || file.startsWith("google");
     if (!excludedStaticPage) {
       checkShareMetadata(file, html);
+      checkAccessibilityBasics(file, html);
       if (!html.includes('href="search.html"')) {
         errors.push(`${file}: 記事検索へのナビゲーションがありません`);
       }
@@ -176,6 +182,7 @@ if (errors.length === 0) {
     const html = read(`posts/${name}`);
     checkLiteralLocalLinks(`posts/${name}`, html);
     checkShareMetadata(`posts/${name}`, html);
+    checkAccessibilityBasics(`posts/${name}`, html);
     if (!html.includes('href="../feed.xml"')) {
       errors.push(`posts/${name}: RSSリンクがありません`);
     }

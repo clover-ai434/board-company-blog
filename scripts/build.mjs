@@ -35,6 +35,9 @@ const STYLE = `
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; max-width: 700px; margin: 0 auto; padding: 40px 20px 72px; line-height: 1.9; font-size: 17px; color: #1f2328; background: #fdfdfb; }
+  .skip-link { position: absolute; left: 8px; top: 8px; padding: 8px 14px; transform: translateY(-160%); background: #1a1a1a; color: #fff !important; border-radius: 6px; z-index: 10; }
+  .skip-link:focus { transform: translateY(0); }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
   header { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #1d4ed8; }
   header h1 { font-size: 1.6rem; margin: 0 0 6px; letter-spacing: 0.02em; }
   header h1 a { color: #1a1a1a; display: inline-flex; align-items: center; gap: 8px; }
@@ -189,10 +192,11 @@ ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag
 ` : ""}<style>${STYLE}</style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">本文へスキップ</a>
 <header>
   <h1><a href="${root}index.html"><img src="${root}icon.png" alt="${SITE_TITLE}" class="site-icon">${SITE_TITLE}</a></h1>
   <p class="tagline">${SITE_DESCRIPTION}</p>
-  <nav>
+  <nav aria-label="サイト内ナビゲーション">
     <a href="${root}index.html">記事一覧</a>
     <a href="${root}oversight-kit.html">無料テンプレート</a>
     <a href="${root}about.html">このブログについて</a>
@@ -203,7 +207,7 @@ ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
   </nav>
 </header>
-<main>
+<main id="main-content">
 ${contentHtml}
 </main>
 <footer>
