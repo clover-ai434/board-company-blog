@@ -148,6 +148,12 @@ if (errors.length === 0) {
     if (!html.includes('<link rel="canonical"')) {
       errors.push(`posts/${name}: canonicalがありません`);
     }
+    if (!html.includes('class="breadcrumbs"') || !html.includes('aria-label="パンくず"')) {
+      errors.push(`posts/${name}: パンくずナビゲーションがありません`);
+    }
+    if (!html.includes('"@type":"BreadcrumbList"')) {
+      errors.push(`posts/${name}: BreadcrumbList構造化データがありません`);
+    }
     if (!html.includes("../quiz.html")) {
       errors.push(`posts/${name}: AI活用度診断への導線がありません`);
     }

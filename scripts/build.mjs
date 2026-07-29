@@ -85,6 +85,9 @@ const STYLE = `
   .post-nav-item { flex: 1 1 240px; padding: 14px 16px; border: 1px solid #e8e6e1; border-radius: 10px; background: #fff; text-decoration: none; color: #1f2328; font-size: 0.9rem; font-weight: 600; line-height: 1.6; }
   .post-nav-item:hover { border-color: #1d4ed8; }
   .post-nav-label { display: block; font-size: 0.72rem; color: #888; font-weight: 500; margin-bottom: 4px; }
+  .breadcrumbs { margin: 0 0 18px; color: #777; font-size: 0.82rem; }
+  .breadcrumbs a { color: #1d4ed8; }
+  .breadcrumbs-separator { margin: 0 6px; color: #aaa; }
 
   .related-posts { margin-top: 28px; }
   .related-posts h3 { margin: 0 0 10px; font-size: 1.05rem; }
@@ -343,7 +346,12 @@ ${relatedPosts.map((candidate) => `      <a class="related-post-card" href="../p
     </div>
   </section>`
       : "";
-    const contentHtml = `<article>
+    const contentHtml = `<nav class="breadcrumbs" aria-label="パンくず">
+  <a href="../index.html">記事一覧</a>
+  <span class="breadcrumbs-separator" aria-hidden="true">›</span>
+  <span aria-current="page">${escapeHtml(post.title)}</span>
+</nav>
+<article>
   <span class="badge ${post.category.cls}">${post.category.label}</span>
   <h2 class="article-title">${escapeHtml(post.title)}</h2>
   <div class="post-meta"><time datetime="${escapeHtml(post.date)}">${escapeHtml(post.date)}</time><span class="dot">・</span><span>読了目安 ${post.minutes}分</span></div>
@@ -369,20 +377,31 @@ ${post.bodyHtml}
       contentHtml,
       jsonLd: {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        headline: post.title,
-        description: post.excerpt,
-        datePublished: post.date,
-        dateModified: post.date,
-        author: { "@type": "Person", name: SITE_TITLE },
-        publisher: {
-          "@type": "Organization",
-          name: SITE_TITLE,
-          logo: { "@type": "ImageObject", url: `${SITE_URL}icon.png` },
-        },
-        image: `${SITE_URL}icon.png`,
-        mainEntityOfPage: { "@type": "WebPage", "@id": url },
-        inLanguage: "ja",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            dateModified: post.date,
+            author: { "@type": "Person", name: SITE_TITLE },
+            publisher: {
+              "@type": "Organization",
+              name: SITE_TITLE,
+              logo: { "@type": "ImageObject", url: `${SITE_URL}icon.png` },
+            },
+            image: `${SITE_URL}icon.png`,
+            mainEntityOfPage: { "@type": "WebPage", "@id": url },
+            inLanguage: "ja",
+          },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "記事一覧", item: SITE_URL },
+              { "@type": "ListItem", position: 2, name: post.title, item: url },
+            ],
+          },
+        ],
       },
     });
     writeFileSync(join(DOCS_POSTS_DIR, `${post.slug}.html`), html, "utf8");
