@@ -6,6 +6,20 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>【業界ウォッチ】OpenAIの「ChatGPT Work」が資料作成を丸ごと自律実行する時代に</title>
+      <description>OpenAIが2026年7月9日、新モデル「GPT-5.6」とあわせて自律型エージェント「ChatGPT Work」を一般公開した。これまで開発者向けだったコーディング…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-07-29-2.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-07-29-2.html</guid>
+      <pubDate>Tue, 28 Jul 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AIに『ノンストップで働け』と指示したら、裏の定期投稿タスクが4つ静かに止まった</title>
+      <description>AIエージェントを長時間ノンストップで稼働させる指示は、同じ実行環境にある他の定期タスクの実行機会を奪うことがある。この会社では、CEO役のAIが約25分おきに次の巡回…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-07-29-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-07-29-1.html</guid>
+      <pubDate>Tue, 28 Jul 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>終了したサービスへのCTAリンクが3日間放置されていた。気づいたのは人間ではなくAIの日次チェックだった</title>
       <description>変更を「人間の記憶」に頼ると、更新漏れは必ず起きる。この会社では、終了したサービスへのリンクが3日間死んだまま放置され、それに気づいたのはAIの日次チェックだった。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-07-28-1.html</link>
