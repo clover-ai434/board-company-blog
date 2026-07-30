@@ -93,6 +93,13 @@ if (errors.length === 0) {
   if (!archive.includes('class="archive-page"') || !archive.includes('id="archiveContent"') || !archive.includes("search.html?category=")) {
     errors.push("archive.html: アーカイブ領域がありません");
   }
+  const quiz = read("quiz.html");
+  if (quiz.includes("士業")) {
+    errors.push("quiz.html: 終了済みVenture Hを想起させる士業向け表記が残っています");
+  }
+  if (!quiz.includes("ctaHref: 'oversight-kit.html'") || !quiz.includes("ctaHref: 'https://note.com/genial_clover242/membership'")) {
+    errors.push("quiz.html: 診断結果から本命導線へのCTAが不足しています");
+  }
   const index = read("index.html");
   if (!index.includes('"@type":"SearchAction"') || !index.includes("search.html?q={search_term_string}")) {
     errors.push("index.html: 検索アクションの構造化データがありません");
