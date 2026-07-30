@@ -115,7 +115,7 @@
   <button type="submit" id="submitBtn">診断結果を見る</button>
 </form>
 
-<div id="result"></div>
+<div id="result" role="status" aria-live="polite" tabindex="-1"></div>
 
 </article>
 </main>
@@ -167,6 +167,7 @@
         '<button type="button" class="share-btn" id="copyLinkBtn">リンクをコピー</button>' +
       '</div>';
     resultEl.style.display = 'block';
+    resultEl.focus();
 
     var copyBtn = document.getElementById('copyLinkBtn');
     if (copyBtn) {

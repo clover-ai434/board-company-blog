@@ -100,6 +100,15 @@ if (errors.length === 0) {
   if (!quiz.includes("ctaHref: 'oversight-kit.html'") || !quiz.includes("ctaHref: 'https://note.com/genial_clover242/membership'")) {
     errors.push("quiz.html: 診断結果から本命導線へのCTAが不足しています");
   }
+  const boundaryCheck = read("boundary-check.html");
+  for (const [file, html] of [["quiz.html", quiz], ["boundary-check.html", boundaryCheck]]) {
+    if (!html.includes('id="result" role="status" aria-live="polite"')) {
+      errors.push(`${file}: 診断結果のライブリージョンがありません`);
+    }
+    if (!html.includes("resultEl.focus()")) {
+      errors.push(`${file}: 診断結果へのフォーカス移動がありません`);
+    }
+  }
   const index = read("index.html");
   if (!index.includes('"@type":"SearchAction"') || !index.includes("search.html?q={search_term_string}")) {
     errors.push("index.html: 検索アクションの構造化データがありません");
