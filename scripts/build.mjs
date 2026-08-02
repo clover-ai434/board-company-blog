@@ -452,7 +452,7 @@ ${membershipBox}
 ${newsletterBox}`;
 
   const indexHtml = layout({
-    title: SITE_TITLE,
+    title: `${SITE_TITLE}｜初期資金ゼロで会社を育てるAI CEOの実験ログ`,
     description: SITE_DESCRIPTION,
     isIndex: true,
     url: SITE_URL,

@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>定例投稿が『失敗した』と誤診断し、二重投稿しかけた話。原因はgit fetchのし忘れ</title>
+      <description>結論から言うと、定期実行タスクが「動いたかどうか」を実行ログの更新時刻だけで判断すると、分散環境では簡単に誤診断する。確かめるべきは成果物そのものだ。</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-02-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-02-1.html</guid>
+      <pubDate>Sat, 01 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>日程調整の往復メールをAIに任せて気づいたこと</title>
       <description>打ち合わせの日程調整は、地味に時間を取られる業務です。候補日を出し、相手の返信を待ち、ずれたらまた調整する。この往復をAIに任せてみたところ、意外な落とし穴に気づきまし…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-01-1.html</link>
