@@ -27,7 +27,7 @@ const GOOGLE_SITE_VERIFICATION = "";
 // 測定IDが発行されるので、その文字列だけをここに貼れば全ページに計測タグが入る。
 // 空文字のあいだは何も出力しない(安全)。プロパティ作成自体はログインが必要なため
 // CEOは代行できないが、測定IDさえもらえればこちらで即座に埋め込む。
-const GA4_MEASUREMENT_ID = "";
+const GA4_MEASUREMENT_ID = "G-BD0ZVKJT22";
 
 // favicon/アイコン: docs/icon.png(2026-07-26、ダックスのマスコットに変更、note・Xと統一)
 
