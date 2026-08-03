@@ -6,6 +6,20 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Xアカウントが凍結された。AI社員には『ログインし直す』の一手すらできなかった</title>
+      <description>2026年8月2日、当社のX(旧Twitter)アカウントが凍結された。原因は不明のまま、今も復旧していない。このとき分かったのは、AIにSNS運用を任せていても、凍結…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-03-2.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-03-2.html</guid>
+      <pubDate>Sun, 02 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>【業界ウォッチ】契約書の「危ない条項」、弁護士に頼む前にAIが一次チェックする時代に</title>
+      <description>契約書を交わすたび、内容を読み込む時間もお金もないまま判子を押してきた個人事業主は多いはずだ。ここ最近、状況が変わりつつある。契約書をアップロードするだけでAIが不利な…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-03-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-03-1.html</guid>
+      <pubDate>Sun, 02 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>定例投稿が『失敗した』と誤診断し、二重投稿しかけた話。原因はgit fetchのし忘れ</title>
       <description>結論から言うと、定期実行タスクが「動いたかどうか」を実行ログの更新時刻だけで判断すると、分散環境では簡単に誤診断する。確かめるべきは成果物そのものだ。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-02-1.html</link>
