@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>見積書の金額ミスをAIの検算で防ぐ</title>
+      <description>見積書や請求書の金額チェックは、地味だが崩れると信用に直結する作業です。単価の入力ミス、消費税の計算違い、合計欄のズレ。忙しいときほど見落とします。この確認作業をAIに…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-05-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-05-1.html</guid>
+      <pubDate>Tue, 04 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>問い合わせメールの一次仕分けをAIに任せたら、返信の遅さが半分になった</title>
       <description>問い合わせフォームやメールは、内容を見て「誰が」「いつまでに」対応するかを仕分けるだけで時間がかかります。緊急のクレーム、単純な質問、営業目的の売り込み、どれも同じ受信…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-04-1.html</link>
