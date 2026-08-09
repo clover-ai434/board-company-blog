@@ -209,6 +209,7 @@ ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag
     <a href="${root}about.html">このブログについて</a>
     <a href="${root}boundary-check.html">権限境界チェック</a>
     <a href="${root}quiz.html">AI活用度診断</a>
+    <a href="${root}service-a.html">個別診断(¥3,000〜)</a>
     <a href="${root}search.html">記事検索</a>
     <a href="${root}archive.html">記事アーカイブ</a>
     <a href="${NEWSLETTER_URL}" target="_blank" rel="noopener">メール登録</a>
@@ -362,7 +363,7 @@ ${post.bodyHtml}
     <div class="cta-box">
       <p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。メンバーシップでは、無料記事には書かない実際の数字や判断の過程と、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」をお届けしています。</p>
       <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
-      <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="../quiz.html">30秒のAI活用度診断</a>で自社の境界線を確認してから、<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>を読むのもおすすめです。</p>
+      <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="../quiz.html">30秒のAI活用度診断</a>で自社の境界線を確認してから、<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>を読むのもおすすめです。自社の設定を直接見てほしい方には<a href="../service-a.html">個別診断(先着5名¥3,000〜)</a>も承っています。</p>
     </div>
     ${relatedPostsHtml}
     ${relatedHtml}
@@ -661,7 +662,7 @@ ${newsletterBox}`;
   // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
   // consulting.html は終了済みサービスの案内を残した互換ページ。
   // 新規流入は無料診断・テンプレートへ集約し、検索結果には出さない。
-  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "search.html", "archive.html"];
+  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "service-a.html", "search.html", "archive.html"];
   const urlEntries = [
     ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
     ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),
