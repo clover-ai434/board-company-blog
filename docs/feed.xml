@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>請求書の督促メールをAIに下書きさせたら、角を立てずに送れるようになった</title>
+      <description>未払いの取引先に督促メールを送るのは気が重い作業です。強く書けば関係が悪化しそうで、遠慮しすぎると支払いがさらに遅れる。このさじ加減をAIに任せてみました。</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-12-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-12-1.html</guid>
+      <pubDate>Tue, 11 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>メール返信の「たたき台」をAIに作らせたら、返信までの時間が縮まった</title>
       <description>メールの返信は、内容を考えるより「書き始めるまで」に時間がかかることが多いものです。この「たたき台作り」をAIに任せてみました。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-11-1.html</link>
