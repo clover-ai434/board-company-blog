@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>業務マニュアルの作成をAIに任せたら、属人化が減った</title>
+      <description>「あの作業はあの人しかわからない」という状態は、多くの現場で放置されがちです。マニュアル化が後回しになるのは、作る作業自体が地味に手間だからです。この作成をAIに任せて…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-14-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-14-1.html</guid>
+      <pubDate>Thu, 13 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>経費精算のレシート仕分けをAIに任せたら、月末の入力時間が減った</title>
       <description>月末にたまった経費のレシートを、勘定科目ごとに仕分けて入力する作業は地味に時間を食います。この一次仕分けをAIに任せてみました。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-13-1.html</link>
