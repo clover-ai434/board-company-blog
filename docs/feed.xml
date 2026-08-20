@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>会議のアジェンダづくりをAIに任せたら、目的のない会議が減った</title>
+      <description>会議の時間そのものより、「何を決める会議なのか曖昧なまま始まる」ことのほうが無駄を生みます。この入り口にあたるアジェンダづくりをAIに任せてみました。</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-20-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-20-1.html</guid>
+      <pubDate>Wed, 19 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>日程調整の候補日出しをAIに任せたら、往復メールが減った</title>
       <description>打ち合わせの日程調整は、候補日を出して相手の都合を聞き、また調整し直す、という往復に地味に時間を取られます。この候補日出しをAIに任せてみました。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-19-1.html</link>
