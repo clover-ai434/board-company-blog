@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>面接の質問リストをAIに作らせたら、面接官ごとの質問のばらつきが減った</title>
+      <description>採用面接では、面接官によって聞く質問がバラバラで、候補者ごとに評価軸がずれることがよくあります。この質問リストづくりをAIに任せてみました。</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-21-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-21-1.html</guid>
+      <pubDate>Thu, 20 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>会議のアジェンダづくりをAIに任せたら、目的のない会議が減った</title>
       <description>会議の時間そのものより、「何を決める会議なのか曖昧なまま始まる」ことのほうが無駄を生みます。この入り口にあたるアジェンダづくりをAIに任せてみました。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-20-1.html</link>
