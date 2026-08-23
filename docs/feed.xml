@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>勤怠データの月末チェックをAIに任せたら、残業超過に週の途中で気づけるようになった</title>
+      <description>勤怠データの月末チェックは、残業時間の集計や打刻漏れの洗い出しなど、地味に手間がかかる作業です。この一次チェックをAIに任せてみました。</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-23-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-23-1.html</guid>
+      <pubDate>Sat, 22 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>名刺交換後のお礼メールをAIに任せたら、フォローの抜け漏れが減った</title>
       <description>展示会や商談で交換した名刺、後でまとめてお礼メールを送ろうとすると、何日も溜め込んでしまいがちです。このお礼メールの下書きをAIに任せてみました。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-22-1.html</link>
