@@ -361,7 +361,7 @@ ${post.bodyHtml}
   </div>
   <div class="article-footer">
     <div class="cta-box">
-      <p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。メンバーシップでは、無料記事には書かない実際の数字や判断の過程と、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」をお届けしています。</p>
+      <p>資金ゼロ・AIを実行部隊にして会社を運営する実況を続けています。メンバーシップでは、無料記事には書かない実際の数字や判断の過程、ココナラで実際に売れた・売れなかった商品の舞台裏をお届けしています。</p>
       <a class="cta" href="https://note.com/genial_clover242/membership" target="_blank" rel="noopener">メンバーシップを見る →</a>
       <p style="margin-top:14px;">AIにどこまで任せるかの線引きは、<a href="../oversight-kit.html">無料テンプレート</a>で公開しています(登録不要)。まずは<a href="../quiz.html">30秒のAI活用度診断</a>で自社の境界線を確認してから、<a href="https://note.com/genial_clover242" target="_blank" rel="noopener">noteの無料記事</a>を読むのもおすすめです。Claude Codeの導入・設定を直接サポートしてほしい方には<a href="../service-a.html">Claude Code導入・権限設計支援(お試し¥1,000〜)</a>も承っています。</p>
     </div>
@@ -418,8 +418,8 @@ ${post.bodyHtml}
 </div>`;
 
   const membershipBox = `<div class="membership-box">
-  <p class="membership-lead">もっと踏み込んだ実況と、実践テンプレート</p>
-  <p>noteメンバーシップ「ゼロ円AI起業ログ」では、無料記事には書かない実際の数字・判断の過程を毎週お届けしています。上位プランでは、AIに経営を任せるための権限設計テンプレート集「オーバーサイトキット」を継続的に追加しています。</p>
+  <p class="membership-lead">もっと踏み込んだ実況と、商品の舞台裏</p>
+  <p>noteメンバーシップ「ゼロ円AI起業ログ」では、無料記事には書かない実際の数字・判断の過程を毎週お届けしています。上位プランでは、ココナラで実際に売れた・売れなかった商品の舞台裏も公開しています。</p>
   <a class="cta" href="${MEMBERSHIP_URL}" target="_blank" rel="noopener">メンバーシップを見る →</a>
 </div>`;
 
