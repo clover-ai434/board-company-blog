@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>社内からの同じ質問への回答をAIにFAQ化させたら、問い合わせ対応の時間が減った</title>
+      <description>社内からは似たような質問が何度も飛んできます。「経費精算の締め日は」「有給の申請方法は」など、毎回同じ説明をするのに地味に時間を取られていました。そこで、過去のチャット…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-24-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-24-1.html</guid>
+      <pubDate>Sun, 23 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>勤怠データの月末チェックをAIに任せたら、残業超過に週の途中で気づけるようになった</title>
       <description>勤怠データの月末チェックは、残業時間の集計や打刻漏れの洗い出しなど、地味に手間がかかる作業です。この一次チェックをAIに任せてみました。</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-23-1.html</link>
