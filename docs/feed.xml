@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>在庫の発注タイミングをAIに予測させたら、欠品と過剰在庫の両方が減った</title>
+      <description>在庫管理は「多めに発注して安心」か「ぎりぎりまで待って欠品」かの二択になりがちです。うちでは過去の出荷実績と現在庫をAIに渡し、発注が必要になりそうな品目と時期を毎朝リ…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-27-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-08-27-1.html</guid>
+      <pubDate>Wed, 26 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>SNSの投稿文をAIに下書きさせてみて、意外だったこと</title>
       <description>SNS(X)の投稿文は、書こうと思うと意外に時間を取られます。伝えたいことは頭にあるのに、文字数に収めて言い回しを整えるだけで数分が溶ける。この下書き作業をAIに任せて…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-08-26-1.html</link>
