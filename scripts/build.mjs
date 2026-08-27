@@ -209,6 +209,7 @@ ${GA4_MEASUREMENT_ID ? `<script async src="https://www.googletagmanager.com/gtag
     <a href="${root}about.html">このブログについて</a>
     <a href="${root}boundary-check.html">権限境界チェック</a>
     <a href="${root}quiz.html">AI活用度診断</a>
+    <a href="${root}claude-md-checker.html">CLAUDE.md診断</a>
     <a href="${root}service-a.html">Claude Code導入支援(¥1,000〜)</a>
     <a href="${root}search.html">記事検索</a>
     <a href="${root}archive.html">記事アーカイブ</a>
@@ -662,7 +663,7 @@ ${newsletterBox}`;
   // sitemap.xml — 検索エンジンに全ページを確実に伝える(2026-07-26追加)
   // consulting.html は終了済みサービスの案内を残した互換ページ。
   // 新規流入は無料診断・テンプレートへ集約し、検索結果には出さない。
-  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "service-a.html", "search.html", "archive.html"];
+  const staticPages = ["", "oversight-kit.html", "about.html", "boundary-check.html", "quiz.html", "claude-md-checker.html", "service-a.html", "search.html", "archive.html"];
   const urlEntries = [
     ...staticPages.map((p) => ({ loc: `${SITE_URL}${p}`, lastmod: posts[0]?.date })),
     ...posts.map((p) => ({ loc: `${SITE_URL}posts/${p.slug}.html`, lastmod: p.date })),
