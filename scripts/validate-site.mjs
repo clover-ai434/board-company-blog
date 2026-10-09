@@ -97,7 +97,7 @@ if (errors.length === 0) {
   if (quiz.includes("士業")) {
     errors.push("quiz.html: 終了済みVenture Hを想起させる士業向け表記が残っています");
   }
-  if (!quiz.includes("ctaHref: 'oversight-kit.html'") || !quiz.includes("ctaHref: 'https://note.com/genial_clover242/membership'")) {
+  if (!quiz.includes("ctaHref: 'oversight-kit.html'") || !quiz.includes("ctaHref: 'service-a.html'")) {
     errors.push("quiz.html: 診断結果から本命導線へのCTAが不足しています");
   }
   const boundaryCheck = read("boundary-check.html");
