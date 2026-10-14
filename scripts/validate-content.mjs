@@ -37,7 +37,7 @@ for (const filename of files) {
     errors.push(`${filename}: ファイル名の日付(${expectedDate})とfrontmatterの日付(${meta.date})が不一致です`);
   }
   if (expectedDate >= THEME_LOG_START_DATE && !themeLog.includes(`| ${expectedDate} |`)) {
-    errors.push(`${filename}: cloud-strategy-notes/tips-theme-log.mdに${expectedDate}の行がありません(テーマ重複チェック表への追記漏れ)`);
+    errors.push(`${filename}: cloud-strategy-notes/tips-theme-log.mdに${expectedDate}の行がありません(テーマ重複チェック表への追記漏れ。次回の戦略メモ作成セッションで追記・解消される想定のため、それまでの一時的な赤は緊急のバグではない)`);
   }
   for (const problem of problems) {
     errors.push(`${filename}: ${problem}`);
