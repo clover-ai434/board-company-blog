@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>社内Wikiの情報が古いままになっていないか、AIにチェックさせてみた</title>
+      <description>社内Wikiやナレッジベースに業務手順をまとめていても、担当者が異動したり仕様が変わったりすると、ページの内容だけが古いまま放置されがちだ。見た目は整っているので、誰も…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-10-19-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-10-19-1.html</guid>
+      <pubDate>Sun, 18 Oct 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>KPIレポートの月次まとめをAIに任せたら、数字を眺める時間が減った</title>
       <description>月初になると、売上・アクセス数・問い合わせ件数など複数のツールに散らばったKPIを一つのレポートにまとめる作業が発生する。手でコピーしてグラフを作るだけで半日近くかかり…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-10-18-1.html</link>
