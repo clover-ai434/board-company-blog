@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>設備の日常点検記録チェックをAIに任せたら、記入漏れにすぐ気づけるようになった</title>
+      <description>現場や店舗の設備点検は、紙やExcelの点検表に手書きで記録することが多い。問題は、記入漏れや記入ミスが発生しても、月末の棚卸しや監査の直前まで気づかれないことだ。</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-05-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-05-1.html</guid>
+      <pubDate>Wed, 04 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>自社サイトのリンク切れチェックをAIに任せたら、放置された404に気づけるようになった</title>
       <description>ブログや会社サイトを運営していると、ページを追加・削除するたびに古いリンクが切れていきます。しかし、リンク切れは自分からは気づきにくいものです。訪問者が404ページに当…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-04-1.html</link>
