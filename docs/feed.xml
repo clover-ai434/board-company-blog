@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>バックアップの実行結果チェックをAIに任せたら、失敗に気づけない日がなくなった</title>
+      <description>バックアップは「取れているはず」で安心してしまいがちなタスクだ。ジョブは動いているように見えても、容量不足や権限エラーで実際には失敗していることがあり、それに気づくのは…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-09-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-09-1.html</guid>
+      <pubDate>Sun, 08 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>ドメイン・SSL証明書の有効期限チェックをAIに任せたら、サイト停止のリスクに気づけるようになった</title>
       <description>ドメインやSSL証明書の有効期限は、更新されるまで誰も気にしないわりに、切れた瞬間に一番困る種類のタスクだ。年1回の更新なので忘れやすく、担当者が異動すると引き継ぎから…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-08-1.html</link>
