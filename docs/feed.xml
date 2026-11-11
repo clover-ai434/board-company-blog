@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>会員のカード有効期限切れチェックをAIに任せたら、決済失敗による解約を防げるようになった</title>
+      <description>サブスクサービスでは、決済に使っているクレジットカードの有効期限切れが、本人も気づかないまま解約の原因になることがある。更新のタイミングで決済が失敗しても、本人はカード…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-11-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-11-1.html</guid>
+      <pubDate>Tue, 10 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>請求書の発行漏れチェックをAIに任せたら、月末の取りこぼしがなくなった</title>
       <description>請求書は「送った記憶」に頼ると危ない業務だ。案件ごとに担当者が個別に発行していると、契約は成立しているのに請求書だけ作り忘れている、というケースが月末になって発覚しがち…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-10-1.html</link>
