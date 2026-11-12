@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>配送状況の遅延チェックをAIに任せたら、顧客への先出し連絡ができるようになった</title>
+      <description>通販事業では、配送業者から届く追跡データに「遅延」のステータスが出ていても、担当者がそれに気づくのは顧客から「荷物が届かない」と問い合わせを受けたときになりがちだった。…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-12-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-12-1.html</guid>
+      <pubDate>Wed, 11 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>会員のカード有効期限切れチェックをAIに任せたら、決済失敗による解約を防げるようになった</title>
       <description>サブスクサービスでは、決済に使っているクレジットカードの有効期限切れが、本人も気づかないまま解約の原因になることがある。更新のタイミングで決済が失敗しても、本人はカード…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-11-1.html</link>
