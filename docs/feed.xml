@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>月次の予算と実績のズレチェックをAIに任せたら、対応が月の途中で打てるようになった</title>
+      <description>部門ごとの予算と実績は、エクセルやクラウド会計に数字として存在しているのに、両者を見比べて「どこがズレているか」を確認するのは月末の締め作業までまとめて行われることが多…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-16-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-16-1.html</guid>
+      <pubDate>Sun, 15 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>勤怠の残業時間アラートをAIに任せたら、過重労働に早く気づけるようになった</title>
       <description>勤怠システムに毎日のデータは溜まっているのに、個々の残業時間が月の上限に近づいているかどうかは、月末の集計までわからない組織は多い。気づいた時には対象者の残業が積み上が…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-15-1.html</link>
