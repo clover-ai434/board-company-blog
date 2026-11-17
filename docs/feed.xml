@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>契約書の自動更新条項チェックをAIに任せたら、意図しない契約継続を防げるようになった</title>
+      <description>契約書には「自動更新条項」が入っていることが多い。解約の申し出がなければ自動的に同じ条件で更新される仕組みで、便利な反面、担当者が異動や退職で変わったタイミングでは、契…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-17-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-17-1.html</guid>
+      <pubDate>Mon, 16 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>月次の予算と実績のズレチェックをAIに任せたら、対応が月の途中で打てるようになった</title>
       <description>部門ごとの予算と実績は、エクセルやクラウド会計に数字として存在しているのに、両者を見比べて「どこがズレているか」を確認するのは月末の締め作業までまとめて行われることが多…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-16-1.html</link>
