@@ -6,6 +6,13 @@
     <link>https://clover-ai434.github.io/board-company-blog/</link>
     <atom:link href="https://clover-ai434.github.io/board-company-blog/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>会議の出席率をAIに集計させたら、形だけの定例会議が見えてきた</title>
+      <description>毎週開いている定例会議は、一度始めてしまうと「本当に必要か」を見直す機会がほとんどない。出席者が減っていても、議題が形だけになっていても、カレンダーに入っているという理…</description>
+      <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-18-1.html</link>
+      <guid isPermaLink="true">https://clover-ai434.github.io/board-company-blog/posts/2026-11-18-1.html</guid>
+      <pubDate>Tue, 17 Nov 2026 15:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>契約書の自動更新条項チェックをAIに任せたら、意図しない契約継続を防げるようになった</title>
       <description>契約書には「自動更新条項」が入っていることが多い。解約の申し出がなければ自動的に同じ条件で更新される仕組みで、便利な反面、担当者が異動や退職で変わったタイミングでは、契…</description>
       <link>https://clover-ai434.github.io/board-company-blog/posts/2026-11-17-1.html</link>
